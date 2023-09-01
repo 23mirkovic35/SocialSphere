@@ -11,6 +11,7 @@ let onlineUsers = [];
 const addUser = (userId, socketId) => {
   !onlineUsers.some((user) => user.userId === userId) &&
     onlineUsers.push({ userId, socketId });
+  return onlineUsers.some((user) => user.userId === userId);
 };
 
 const removeUser = (socketId) => {
@@ -23,8 +24,9 @@ const getUser = (userId) => {
 
 io.on("connection", (socket) => {
   socket.on("addOnlineUser", (username) => {
-    addUser(username, socket.id);
+    let added = addUser(username, socket.id);
     console.log(onlineUsers);
+    if (added) io.emit("newOnlineUser", { username });
   });
 
   socket.on("sendFriendRequest", ({ sender, receiver }) => {
@@ -46,6 +48,14 @@ io.on("connection", (socket) => {
       receiver,
     });
     console.log(sender + " has accepted friend request from " + receiver);
+  });
+
+  socket.on("getOnlineFriends", () => {
+    let usernameArray = [];
+    for (let i = 0; i < onlineUsers.length; i++) {
+      usernameArray.push(onlineUsers[i].userId);
+    }
+    io.emit("allOnlineUsers", { usernameArray });
   });
 
   socket.on("disconnect", () => {

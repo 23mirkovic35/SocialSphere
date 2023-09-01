@@ -118,7 +118,7 @@ export default function UserData(props) {
           </svg>
           <div className="text">Friends</div>
         </div>
-        <div className="number">255</div>
+        <div className="number">{friends.length}</div>
       </div>
       <div className="field images">
         <div className="text-icon">

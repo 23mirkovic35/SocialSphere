@@ -10,6 +10,7 @@ import Sidebar from "../components/SideBar";
 import "../styles/MySphere.css";
 import axios from "axios";
 import Popup from "../components/Popup";
+import OnlineUsersBar from "../components/OnlineUsersBar";
 
 export default function MySphere() {
   const [socket, setSocket] = useState(null);
@@ -76,6 +77,7 @@ export default function MySphere() {
       <div className="mySphere-routes">
         <Outlet context={{ myData, socket }} />
       </div>
+      <OnlineUsersBar myData={myData} socket={socket} />
     </div>
   );
 }

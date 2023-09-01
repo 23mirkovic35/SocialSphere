@@ -271,7 +271,9 @@ export default function Profile() {
           <div className="user-name">{user.name}</div>
           {!isMe && (
             <div className="friends-number">
-              {isFriend && <div className="number">255 friends</div>}
+              {isFriend && (
+                <div className="number">{user.friends.length} friends</div>
+              )}
               <span className="circle"></span>
               <div className="number">
                 10 mutual

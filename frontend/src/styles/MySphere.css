@@ -4,9 +4,8 @@
 }
 .MySphere .mySphere-routes {
   position: absolute;
-  top: 70px;
+  top: 75px;
   left: 270px;
-  max-width: 1000px;
   width: 60%;
-  height: calc(100% - 70px);
+  height: calc(100% - 75px);
 }
