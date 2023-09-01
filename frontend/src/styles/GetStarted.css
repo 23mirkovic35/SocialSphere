@@ -1,0 +1,146 @@
+.GetStarted {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.GetStarted .wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: var(--box-shadow);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  width: 400px;
+  transition: all 0.5s ease;
+}
+.GetStarted .wrapper .user-info,
+.GetStarted .wrapper .image-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  animation: opacity 1s;
+}
+.GetStarted .logo-container {
+  padding: 10px;
+}
+.GetStarted .input {
+  margin-top: 10px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.GetStarted .user-info .btn-container {
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.GetStarted .user-info .btn-container button {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  color: black;
+  background-color: rgba(0, 119, 255, 0.06);
+  transition: all 0.5s ease;
+  padding: 5px;
+}
+.GetStarted .user-info .btn-container button:hover {
+  background-color: rgba(0, 119, 255, 0.3);
+  transform: scale(0.9);
+}
+.GetStarted .wrapper .user-info.hide {
+  display: none;
+}
+
+.GetStarted .wrapper .image-picker.hide {
+  display: none;
+}
+
+.GetStarted .wrapper .image-picker .title {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
+}
+.GetStarted .wrapper .image-picker img {
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+.GetStarted .wrapper .image-picker input[type="file"] {
+  display: none;
+}
+
+.GetStarted .wrapper .image-picker .options {
+  display: flex;
+  padding: 10px;
+}
+
+.GetStarted .wrapper .image-picker .options label {
+  cursor: pointer;
+  display: block;
+  margin: 5px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  transition: all 0.5s ease;
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.GetStarted .wrapper .image-picker .options label:hover {
+  transform: scale(0.9);
+  background-color: rgba(0, 119, 255, 0.3);
+}
+
+.GetStarted .wrapper .image-picker .btn-container {
+  width: 70%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.GetStarted .wrapper .image-picker .btn-container button {
+  font-family: "Poppins", sans-serif;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius);
+  transition: all 0.5s ease;
+  background-color: rgba(0, 119, 255, 0.06);
+  padding: 5px;
+}
+
+.GetStarted .wrapper .image-picker .btn-container button:hover {
+  transform: scale(0.9);
+  background-color: rgba(0, 119, 255, 0.3);
+}
+
+.GetStarted .wrapper .btn-container button .btn-text {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+@keyframes opacity {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+}

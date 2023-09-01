@@ -1,0 +1,10 @@
+.Home {
+    position: relative;
+    height: 100vh;
+}
+.Home section{
+    height: 100vh;
+}
+.Home #section-home{
+    background-color: white;
+}

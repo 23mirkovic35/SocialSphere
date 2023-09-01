@@ -1,0 +1,133 @@
+.SearchBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+}
+.SearchBox input {
+  outline: none;
+  width: 90%;
+  padding: 15px;
+  padding-left: 40px;
+  border: 1px solid rgba(128, 128, 128, 0.185);
+  border-radius: 10px;
+}
+
+.SearchBox #loop {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 12px;
+}
+.SearchBox .search-parameters {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SearchBox .search-parameters input[type="checkbox"] {
+  display: none;
+}
+.SearchBox .search-parameters input[type="checkbox"]:checked ~ .search-options {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.SearchBox #search-settings {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+.SearchBox #search-settings:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+
+.SearchBox .search-options {
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  color: black;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  top: calc(100% + 15px);
+  padding: 10px;
+}
+.SearchBox .search-options .title {
+  text-align: left;
+  font-size: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  font-weight: 500;
+}
+.SearchBox .search-options .options {
+  display: flex;
+  padding: 10px;
+}
+.SearchBox .search-options .options input[type="radio"] {
+  display: none;
+}
+.SearchBox .search-options .options .radio-container {
+  margin: 5px;
+}
+.SearchBox .search-options .options .radio-container label {
+  cursor: pointer;
+  background-color: rgba(0, 119, 255, 0.06);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.SearchBox .search-options .options input[type="radio"]:checked + label,
+.SearchBox .search-options .options .radio-container label:hover {
+  background-color: rgba(0, 119, 255, 0.3);
+}
+.SearchBox .search-result {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 15px);
+  width: 100%;
+  left: calc(50% + 6px);
+  transform: translate(-50%);
+  height: 350px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  color: black;
+  overflow: auto;
+  padding: 10px;
+}
+.SearchBox .search-result.active {
+  visibility: visible;
+}
+.SearchBox .search-result .result {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+  animation: show-options 1s;
+}
+.SearchBox .search-result .result:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.SearchBox .search-result .result .user-name {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.SearchBox .search-result .result .user-username {
+  font-size: 12px;
+  opacity: 0.4;
+}
+@keyframes show-options {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

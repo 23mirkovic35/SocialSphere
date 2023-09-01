@@ -1,0 +1,67 @@
+.UserData {
+  width: 40%;
+  padding: 10px;
+}
+
+.UserData .about {
+  padding: 10px;
+}
+.UserData .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.UserData .bio-text {
+  padding-top: 5px;
+}
+
+.UserData .field {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+}
+
+.UserData .field.friends,
+.UserData .field.images {
+  cursor: pointer;
+  background-color: aliceblue;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: space-between;
+  transition: background 0.5s ease;
+}
+
+.UserData .field.friends:hover,
+.UserData .field.images:hover {
+  background-color: rgba(0, 119, 255, 0.3);
+}
+
+.UserData .field.friends .text-icon,
+.UserData .field.images .text-icon {
+  display: flex;
+  align-items: center;
+}
+
+.UserData .field.friends .text-icon .text,
+.UserData .field.images .text-icon .text {
+  margin-left: 5px;
+}
+
+.UserData .field .value {
+  margin-left: 5px;
+}
+
+.UserData .field .number {
+  font-size: 12px;
+  color: white;
+  background-color: rgb(57, 120, 183);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}

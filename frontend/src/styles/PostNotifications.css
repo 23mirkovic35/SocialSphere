@@ -1,0 +1,71 @@
+.PostNotifications {
+  cursor: pointer;
+  background-color: rgb(96, 155, 215);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.PostNotifications input[type="checkbox"] {
+  display: none;
+}
+.PostNotifications input[type="checkbox"]:checked ~ .notifications-box {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.PostNotifications .notifications-box {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  width: 300px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.PostNotifications .notifications-box .title {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.PostNotifications .notifications-box .notifications {
+  padding: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.PostNotifications .notifications-box .show-all {
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.PostNotifications .notifications-box .show-all:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.PostNotifications .red-dot {
+  display: none;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  background-color: rgb(165, 21, 21);
+  border-radius: 50%;
+}
+.PostNotifications .red-dot.active {
+  display: block;
+}

@@ -1,0 +1,102 @@
+.FriendRequestNotification {
+  background-color: rgb(96, 155, 215);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.FriendRequestNotification input[type="checkbox"] {
+  display: none;
+}
+.FriendRequestNotification input[type="checkbox"]:checked ~ .requests-box {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.FriendRequestNotification .requests-box {
+  /* visibility: hidden;
+  background-color: white;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  width: 280px;
+  max-height: 500px;
+  color: black;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: auto; */
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  width: 300px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.FriendRequestNotification .requests-box .title {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.FriendRequestNotification .requests-box .title .other {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  font-size: 12px;
+  padding: 5px;
+  height: 100%;
+  margin-top: 2px;
+  color: rgb(57, 120, 183);
+}
+
+.FriendRequestNotification .requests-box .title .req-span {
+  display: block;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: rgb(57, 120, 183);
+}
+
+.FriendRequestNotification .requests-box .requests {
+  padding: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.FriendRequestNotification .requests-box .show-all {
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.FriendRequestNotification .requests-box .show-all:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.FriendRequestNotification .red-dot {
+  display: none;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  background-color: rgb(165, 21, 21);
+  border-radius: 50%;
+}
+.FriendRequestNotification .red-dot.active {
+  display: block;
+}

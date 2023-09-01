@@ -1,0 +1,120 @@
+.MessageNotifications {
+  cursor: pointer;
+  background-color: rgb(96, 155, 215);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.MessageNotifications input[type="checkbox"] {
+  display: none;
+}
+.MessageNotifications input[type="checkbox"]:checked ~ .messages-box {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.MessageNotifications label {
+  cursor: pointer;
+}
+.MessageNotifications .messages-box {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  width: 300px;
+  color: black;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  background-color: white;
+}
+
+.MessageNotifications .messages-box .title {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.MessageNotifications .messages-box .title .other {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  font-size: 12px;
+  padding: 5px;
+  height: 100%;
+  margin-top: 2px;
+  color: rgb(57, 120, 183);
+}
+
+.MessageNotifications .messages-box .title .other .unread-msg {
+  display: block;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: rgb(57, 120, 183);
+}
+.MessageNotifications .messages-box .show-all {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.MessageNotifications .messages-box .show-all:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+
+.MessageNotifications .messages-box .messages {
+  padding: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.MessageNotifications .messages-box .messages .message-box {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+}
+.MessageNotifications .messages-box .messages .unread {
+  border-left: 5px solid rgb(57, 120, 183);
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.MessageNotifications .messages-box .messages .message-box:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.MessageNotifications .messages-box .messages .message-box .message {
+  margin-left: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.MessageNotifications .messages-box .messages .message-box .message .from {
+  font-weight: 500;
+  font-size: 14px;
+}
+.MessageNotifications .messages-box .messages .message-box .message .text {
+  font-size: 12px;
+}
+.MessageNotifications .red-dot {
+  display: block;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  background-color: rgb(165, 21, 21);
+  border-radius: 50%;
+}

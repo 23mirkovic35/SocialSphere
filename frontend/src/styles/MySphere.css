@@ -1,0 +1,12 @@
+.MySphere {
+  position: relative;
+  height: 100vh;
+}
+.MySphere .mySphere-routes {
+  position: absolute;
+  top: 70px;
+  left: 270px;
+  max-width: 1000px;
+  width: 60%;
+  height: calc(100% - 70px);
+}

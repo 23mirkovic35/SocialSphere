@@ -1,0 +1,22 @@
+.Notification {
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  transition: background 0.5s ease;
+}
+.Notification:hover {
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.Notification .notification-text {
+  max-width: 200px;
+  margin-left: 10px;
+}
+
+.Notification .notification-text span {
+  font-weight: 600;
+}

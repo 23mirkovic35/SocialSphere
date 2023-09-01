@@ -1,0 +1,41 @@
+@import url('https://fonts.cdnfonts.com/css/project-9');
+
+.Logo {
+    display: flex;
+    align-items: center;
+}
+
+.Logo img{
+    height: 40px;
+}
+
+.Logo .textContainer{
+    margin-left: 8px;
+    margin-top: 2px;
+    height: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Logo .name{
+    color: white;
+    /*color: rgb(37, 86, 115);*/
+    font-family: 'Project-9', sans-serif;                                           
+    font-size: 24px;
+}
+
+.Logo .slogan {
+    color: white;
+    /*color: rgb(164, 196, 212);*/
+    margin-top: -5px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.Logo .white{
+    color: white;
+}
+.Logo .blue {
+    color: rgb(23, 84, 112);
+}

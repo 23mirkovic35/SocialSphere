@@ -1,0 +1,115 @@
+.FeedNavbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 10px);
+  height: 55px;
+  z-index: 100;
+  background-color: rgb(57, 120, 183);
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.FeedNavbar .navbar-container {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.FeedNavbar .navbar-container .user-content {
+  position: relative;
+}
+.FeedNavbar .navbar-container .user-content input[type="checkbox"] {
+  display: none;
+}
+.FeedNavbar
+  .navbar-container
+  .user-content
+  input[type="checkbox"]:checked
+  ~ .user-options {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.FeedNavbar .navbar-container .user-content .user-options {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 16px);
+  background-color: white;
+  color: black;
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  width: 200px;
+  max-width: 300px;
+}
+.FeedNavbar .navbar-container .user-content .user-options .option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.FeedNavbar .navbar-container .user-content .user-options .option:hover {
+  background-color: rgba(0, 119, 255, 0.3);
+}
+.FeedNavbar .navbar-container .user-content .user-options .option > svg {
+  padding-right: 10px;
+  border-right: 1px solid rgba(161, 161, 161, 0.432);
+}
+.FeedNavbar
+  .navbar-container
+  .user-content
+  .user-options
+  .option
+  .option-title {
+  margin-left: 10px;
+}
+.FeedNavbar .navbar-container .user-content .user-options .option.profile {
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 119, 255, 0.06);
+}
+.FeedNavbar
+  .navbar-container
+  .user-content
+  .user-options
+  .option.profile
+  .user-info {
+  padding: 5px;
+}
+.FeedNavbar
+  .navbar-container
+  .user-content
+  .user-options
+  .option.profile
+  .user-info
+  span {
+  font-size: 14px;
+  color: grey;
+}
+.FeedNavbar
+  .navbar-container
+  .user-content
+  .user-options
+  .option.profile
+  .user-info
+  .name {
+  font-weight: 600;
+}
+.FeedNavbar img {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}

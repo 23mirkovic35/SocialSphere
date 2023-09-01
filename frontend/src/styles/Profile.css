@@ -1,0 +1,162 @@
+.Profile {
+  height: 100%;
+  width: 100%;
+}
+.Profile .images {
+  position: relative;
+}
+.Profile .images .social-network {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.Profile .images .social-network .field {
+  cursor: pointer;
+  margin: 5px;
+}
+.Profile .images .social-network .vertical-line {
+  display: block;
+  width: 2px;
+  height: 50px;
+  background-color: white;
+  border-radius: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.Profile #background-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+.Profile #profile-img {
+  position: absolute;
+  top: 225px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border: 5px solid white;
+  border-radius: 50%;
+}
+.Profile .info {
+  padding: 10px;
+  padding-top: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: fit-content;
+}
+
+.Profile .info .user {
+  padding: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Profile .info .user .user-name {
+  font-size: 24px;
+}
+
+.Profile .info .user .friends-number {
+  padding: 5px;
+  color: rgb(161, 161, 161);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.Profile .info .user .friends-number .circle {
+  display: block;
+  height: 8px;
+  width: 8px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 2px;
+  background-color: rgb(161, 161, 161);
+  border-radius: 50%;
+}
+.Profile .info .user .friends-number .number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Profile .info .user .friends-number .number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Profile .info .user .friends-number .number .more-text {
+  margin-left: 5px;
+}
+.Profile .info .btn-container {
+  display: flex;
+}
+.Profile .info .btn-container button {
+  margin: 5px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  background-image: linear-gradient(
+    to right,
+    rgb(57, 120, 183) 50%,
+    #165496 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  transition: background 0.5s ease;
+}
+
+.Profile .info .btn-container button#accept-request {
+  background-image: linear-gradient(
+    to right,
+    rgb(23, 127, 87) 50%,
+    rgb(6, 86, 55) 50%
+  );
+}
+
+.Profile .info .btn-container button#decline-request {
+  background-image: linear-gradient(
+    to right,
+    rgb(127, 23, 23) 50%,
+    rgb(86, 6, 6) 50%
+  );
+}
+
+.Profile .info .btn-container button:hover {
+  background-position: 100%;
+}
+.Profile .info .btn-container .btn-text {
+  margin-left: 5px;
+}
+.Profile .horizontal-line {
+  display: block;
+  width: 90%;
+  height: 1px;
+  background-color: grey;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.1;
+}
+.Profile .others {
+  padding: 20px;
+}

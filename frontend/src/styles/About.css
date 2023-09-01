@@ -1,0 +1,59 @@
+#about {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+#about h1{
+    font-size: 32px;
+}
+#about .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#about .content .text{
+    padding: 30px;
+    width: 400px;
+}
+#about .content .text .title-text{
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+#about .content .text .title-text>span{
+    font-weight: 900;
+    font-family: 'Project-9', sans-serif; 
+}
+#about .content .text .text-content{
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+#about .read-btn{
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: black;
+    background-color: rgba(0, 119, 255, 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+#about .read-btn:hover{
+    background-color: rgba(0, 119, 255, 0.3);
+    transform: translateX(10px);
+}
+
+#about .read-btn .icon{
+    margin-top: 2px;
+    margin-left: 5px;
+}
+#about #img-about{
+    height: 400px;
+}

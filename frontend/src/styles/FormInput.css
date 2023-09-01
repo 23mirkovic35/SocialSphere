@@ -1,0 +1,63 @@
+.FormInput {
+  width: 100%;
+  position: relative;
+}
+.FormInput input {
+  width: 90%;
+  padding: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.185);
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.FormInput textarea {
+  width: 90%;
+  height: 150px;
+  padding: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.185);
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  resize: none;
+}
+.FormInput label.type-other {
+  color: rgb(177, 176, 176);
+  position: absolute;
+  top: calc(50% - 3px);
+  left: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: all 0.5s ease;
+  background: white;
+  border-radius: 10px;
+  padding: 5px;
+  padding-right: 20px;
+}
+.FormInput label.type-textarea {
+  color: rgb(177, 176, 176);
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  background: transparent;
+  border-radius: 10px;
+  padding: 5px;
+}
+.FormInput input:focus ~ label,
+.FormInput input:valid ~ label {
+  transform: translateY(-37px);
+  background: white;
+  font-size: 12px;
+  color: black;
+  padding: 5px;
+}
+
+.FormInput textarea:focus ~ label,
+.FormInput textarea:valid ~ label {
+  padding: 5px;
+  transform: translateY(-27px);
+  font-size: 12px;
+  color: black;
+  background: white;
+}
