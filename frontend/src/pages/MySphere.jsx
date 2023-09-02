@@ -67,6 +67,8 @@ export default function MySphere() {
   useEffect(() => {
     if (socket) {
       socket.emit("addOnlineUser", username);
+      const myUsername = localStorage.getItem("user");
+      socket.emit("getOnlineFriends", { myUsername: myUsername });
     }
   }, [socket]);
   return (

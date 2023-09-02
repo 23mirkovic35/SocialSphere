@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/UserData.css";
 export default function UserData(props) {
   const { city, country, birthday, biography, friends, posts } = props;
@@ -118,7 +118,7 @@ export default function UserData(props) {
           </svg>
           <div className="text">Friends</div>
         </div>
-        <div className="number">{friends.length}</div>
+        {friends && <div className="number">{friends.length}</div>}
       </div>
       <div className="field images">
         <div className="text-icon">

@@ -4,16 +4,23 @@ import axios from "axios";
 export default function SideBar(props) {
   const { myData } = props;
 
+  const linkToFeed = () => {
+    window.location.href = `http://localhost:3000/mySphere`;
+  };
+  const linkToProfile = () => {
+    window.location.href = `http://localhost:3000/mySphere/profile/${myData.username}`;
+  };
+
   return (
     <div className="SideBar">
-      <div className="field user">
+      <div className="field user" onClick={linkToProfile}>
         <img id="profilePic-sidebar" src={myData.profilePicture} alt="" />
         <div className="user-info">
           <div className="name">{myData.name}</div>
           <div className="username">@{myData.username}</div>
         </div>
       </div>
-      <div className="field">
+      <div className="field" onClick={linkToFeed}>
         <svg
           height={20}
           width={20}

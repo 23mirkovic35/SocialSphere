@@ -108,6 +108,7 @@ class UserController {
   };
   searchByUsername = (req, res) => {
     const username = req.body.username;
+    console.log(username);
     user
       .findOne({ username: username })
       .then((result) => {
@@ -116,6 +117,7 @@ class UserController {
           username: result.username,
           profilePicture: result.profilePicture,
         };
+        // console.log(obj);
         res.json(obj);
       })
       .catch((error) => console.log(error));
