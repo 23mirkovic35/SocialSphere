@@ -11,9 +11,6 @@ class UserController {
   };
   signup = (req, res) => {
     const { username, email, password } = req.body;
-    console.log(
-      "New user has been created: " + username + " " + email + " " + password
-    );
     const newUser = new user({
       _id: new mongoose.Types.ObjectId(),
       name: "",
@@ -52,7 +49,6 @@ class UserController {
     user
       .findOne({ email: email })
       .then((user) => {
-        console.log(user);
         if (user === null) res.json(false);
         else res.json(true);
       })
@@ -63,14 +59,12 @@ class UserController {
     user
       .findOne({ username: username })
       .then((user) => {
-        console.log(user);
         res.json(user);
       })
       .catch((err) => console.log("Error finding user:", err));
   };
   getStartedUpdate = (req, res) => {
     const { username, name, birthday, city, country, image } = req.body;
-    console.log(username + " " + name + " \n" + image);
     const query = { username: username };
     const update = {
       name: name,
@@ -108,7 +102,6 @@ class UserController {
   };
   searchByUsername = (req, res) => {
     const username = req.body.username;
-    console.log(username);
     user
       .findOne({ username: username })
       .then((result) => {
@@ -117,14 +110,12 @@ class UserController {
           username: result.username,
           profilePicture: result.profilePicture,
         };
-        // console.log(obj);
         res.json(obj);
       })
       .catch((error) => console.log(error));
   };
   addFriendRequest = (req, res) => {
     const { myUsername, friendUsername } = req.body;
-    console.log(myUsername + " " + friendUsername);
 
     const query_me = { username: myUsername };
     const update_me = { $push: { myRequests: friendUsername } };
@@ -142,7 +133,6 @@ class UserController {
   };
   removeFriendRequest = (req, res) => {
     const { myUsername, friendUsername } = req.body;
-    console.log(myUsername + " " + friendUsername);
     const query_me = { username: myUsername };
     const update_me = { $pull: { myRequests: friendUsername } };
     const query_friend = { username: friendUsername };
@@ -159,7 +149,6 @@ class UserController {
   };
   addNotification = (req, res) => {
     const { username, myUsername } = req.body;
-    console.log(req.body);
     const query = { username: myUsername };
     const update = {
       $push: {
@@ -210,10 +199,9 @@ class UserController {
     user
       .findOneAndUpdate(filter_myData, update_myData, { new: true })
       .then((result) => {
-        console.log(result);
         user
           .findOneAndUpdate(filter_friendData, update_friendData, { new: true })
-          .then((result) => console.log(result))
+          .then((result) => {})
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
@@ -253,7 +241,7 @@ class UserController {
     const options = { new: true };
     user
       .findOneAndUpdate(filter, update, options)
-      .then((result) => console.log(profilePicture))
+      .then((result) => {})
       .catch((error) => console.log(error));
   };
 }

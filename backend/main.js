@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const PORT = 5000;
 const userRouter = require("./routes/user.routes.js");
 const mailRouter = require("./routes/mail.routes.js");
-
+const emojiRouter = require("./routes/emoji.routes.js");
+const postRouter = require("./routes/post.routes.js");
 
 mongoose
   .connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,6 +25,8 @@ const router = express.Router();
 app.use("/", router);
 router.use("/users", userRouter);
 router.use("/send-mail", mailRouter);
+router.use("/emojis", emojiRouter);
+router.use("/posts", postRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);

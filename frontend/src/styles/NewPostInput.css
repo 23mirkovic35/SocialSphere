@@ -1,0 +1,133 @@
+.NewPostInput {
+  margin-top: 20px;
+  background-color: white;
+  width: 600px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+.NewPostInput .input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.NewPostInput #myProfilePicture-newPost {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.NewPostInput textarea {
+  width: 85%;
+  padding: 10px;
+  padding-left: 45px;
+  padding-right: 45px;
+  font-family: "Poppins", sans-serif;
+  max-height: 200px;
+  padding-top: 12px;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  outline: none;
+  border: none;
+  resize: none;
+}
+.NewPostInput .horizontal-line {
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 10px;
+  background-color: rgba(128, 128, 128, 0.126);
+}
+.NewPostInput .btn-container {
+  margin-top: 5px;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.NewPostInput .btn-container .options {
+  display: flex;
+}
+
+.NewPostInput .btn-container .options label#photo-label {
+  margin-right: 6px;
+}
+.NewPostInput .btn-container label {
+  padding: 5px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(235, 245, 254) 50%,
+    rgba(0, 119, 255, 0.3) 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #000;
+  transition: background 0.5s ease;
+}
+
+.NewPostInput .btn-container label:hover {
+  background-position: 100%;
+}
+.NewPostInput .btn-container label svg {
+  margin-right: 5px;
+}
+.NewPostInput input[type="file"] {
+  display: none;
+}
+
+.NewPostInput .attachments {
+  /* display: none; */
+  max-width: 100%;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-left: 50px;
+}
+
+.NewPostInput .attachments .attachment {
+  position: relative;
+  margin: 5px;
+}
+
+.NewPostInput .attachments .attachment .delete-img {
+  border-radius: var(--border-radius);
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  right: 0;
+  background-color: rgba(127, 23, 23, 0.57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+
+.NewPostInput .attachments .attachment .delete-img:hover {
+  background-color: rgba(127, 23, 23, 1);
+}
+
+.NewPostInput .attachments img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}

@@ -61,4 +61,8 @@ userRouter
 userRouter
   .route("/updateUserData")
   .post((req, res) => new userController().updateUserData(req, res));
+
+userRouter
+  .route("/newPost")
+  .post((req, res) => new userController().newPost(req, res));
 module.exports = userRouter;
