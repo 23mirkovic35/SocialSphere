@@ -11,8 +11,8 @@ function FeedNavbar(props) {
   return (
     <div className="FeedNavbar">
       <Logo isHome={true} />
-      <SearchBar />
       <div className="navbar-container">
+        <SearchBar />
         <FriendRequestNotification
           socket={socket}
           myData={myData}

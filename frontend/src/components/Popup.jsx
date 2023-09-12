@@ -3,10 +3,16 @@ import "../styles/Popup.css";
 import { FaXmark, FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 
 function Popup(props) {
-  const { show, type, text, username, profilePicture } = props;
+  const { show, type, text, username, profilePicture, postId } = props;
   setTimeout(() => {
     if (show === true) props.close(false);
   }, 5000);
+  const viewProfile = () => {
+    window.location.href = `http://localhost:3000/mySphere/profile/${username}`;
+  };
+  const viewPost = (postId) => {
+    window.location.href = `http://localhost:3000/mySphere/post/${postId}`;
+  };
   return show ? (
     <div className="Popup">
       {type === "error" && (
@@ -32,7 +38,19 @@ function Popup(props) {
         </div>
       )}
       {type === "request" && (
-        <div className="popup-wrapper request">
+        <div className="popup-wrapper request" onClick={() => viewProfile()}>
+          <img src={profilePicture} alt="" />
+          <div className="text">
+            {username}
+            {text}
+          </div>
+          <button className="close-btn" onClick={() => props.close(false)}>
+            <FaXmark size="20" color="grey" />
+          </button>
+        </div>
+      )}
+      {type === "post" && (
+        <div className="popup-wrapper request" onClick={() => viewPost(postId)}>
           <img src={profilePicture} alt="" />
           <div className="text">
             {username}

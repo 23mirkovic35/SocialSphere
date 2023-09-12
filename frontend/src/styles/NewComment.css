@@ -1,0 +1,35 @@
+.NewComment {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.NewComment textarea {
+  font-family: "Poppins", sans-serif;
+  width: 90%;
+  resize: none;
+  max-height: 40px;
+  padding: 10px;
+  background-color: aliceblue;
+  border: none;
+  outline: none;
+  border-radius: var(--border-radius);
+  padding-right: 50px;
+}
+.NewComment button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  height: 30px;
+  width: 30px;
+  border-radius: var(--border-radius);
+  right: 5px;
+  border: none;
+  outline: none;
+  padding: 5px;
+  transform: translateY(-50%);
+  background-color: royalblue;
+}

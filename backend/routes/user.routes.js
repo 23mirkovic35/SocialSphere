@@ -65,4 +65,13 @@ userRouter
 userRouter
   .route("/newPost")
   .post((req, res) => new userController().newPost(req, res));
+
+userRouter
+  .route("/removeFriend")
+  .post((req, res) => new userController().removeFriend(req, res));
+
+userRouter
+  .route("/rejectFriendRequest")
+  .post((req, res) => new userController().rejectFriendRequest(req, res));
+
 module.exports = userRouter;

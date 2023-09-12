@@ -7,6 +7,11 @@ import GetStarted from "./pages/GetStarted";
 import MySphere from "./pages/MySphere";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
+import Friends from "./components/Friends";
+import ImageGallery from "./pages/ImageGallery";
+import ViewPost from "./components/ViewPost";
+import Groups from "./pages/Groups";
+import GroupPage from "./pages/GroupPage";
 const App = () => {
   return (
     <Router>
@@ -18,7 +23,12 @@ const App = () => {
           <Route path="get-started/:username" element={<GetStarted />} />
           <Route path="mySphere" element={<MySphere />}>
             <Route path="" element={<Feed />} />
+            <Route path="friends/:username" element={<Friends />} />
             <Route path="profile/:username" element={<Profile />} />
+            <Route path="images/:username" element={<ImageGallery />} />
+            <Route path="post/:postId" element={<ViewPost />} />
+            <Route path="groups/:username" element={<Groups />} />
+            <Route path="group/:groupId" element={<GroupPage />} />
           </Route>
         </Routes>
       </div>

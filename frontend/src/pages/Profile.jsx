@@ -6,6 +6,7 @@ import { useUserAndSocket } from "./MySphere";
 import PrivateAccount from "../components/PrivateAccount";
 import UserData from "../components/UserData";
 import EditProfile from "../components/EditProfile";
+import Post from "../components/Post";
 export default function Profile() {
   const navigator = useNavigate();
   const { username } = useParams();
@@ -16,6 +17,7 @@ export default function Profile() {
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
   const [user, setUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     if (username !== myData.username) {
@@ -38,8 +40,6 @@ export default function Profile() {
       setIsMe(true);
       setIsPadding(false);
     }
-    console.log(user);
-    console.log(myData);
   }, [user]);
 
   useEffect(() => {
@@ -65,6 +65,19 @@ export default function Profile() {
       }
     );
     setUser(response.data);
+    const responsePosts = await axios.post(
+      "http://localhost:5000/posts/userPosts",
+      {
+        username: username,
+      }
+    );
+
+    const array = [];
+    for (let i = 0; i < responsePosts.data.length; i++) {
+      const element = responsePosts.data[i];
+      array.unshift(element);
+    }
+    setPosts(array);
   }
 
   async function DB_removeFriendRequest() {
@@ -101,9 +114,53 @@ export default function Profile() {
       sender: myData.username,
       receiver: username,
     });
+    const data = {
+      myUsername: myData.username,
+      friendUsername: username,
+    };
+    axios
+      .post("http://localhost:5000/users/addFriend", data)
+      .then((response) => {})
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    setIsFriend(true);
+    setIsWaitingForResponse(false);
   };
 
-  const handleDecline = () => {};
+  const handleDecline = () => {
+    const data = {
+      myUsername: myData.username,
+      friendUsername: username,
+    };
+    axios
+      .post("http://localhost:5000/users/rejectFriendRequest", data)
+      .then((response) => {})
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    setIsWaitingForResponse(false);
+  };
+
+  function removeFriend() {
+    DB_removeFriend();
+  }
+
+  async function DB_removeFriend() {
+    try {
+      const respones = await axios.post(
+        "http://localhost:5000/users/removeFriend",
+        {
+          myUsername: myData.username,
+          friendUsername: username,
+        }
+      );
+
+      setIsFriend(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const linkToInstagram = () => {
     window.location.href = `https://www.instagram.com/${myData.instagram}`;
@@ -263,7 +320,7 @@ export default function Profile() {
           </div>
           <span className="vertical-line"></span>
         </div>
-        <img id="background-img" src={myData.backgroundPicture} alt="" />
+        <img id="background-img" src={user.backgroundPicture} alt="" />
         <img id="profile-img" src={user.profilePicture} alt="" />
       </div>
       <div className="info">
@@ -376,42 +433,94 @@ export default function Profile() {
             </button>
           )}
           {isFriend && (
-            <button>
-              <svg
-                height={20}
-                width={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <>
+              <button
+                onClick={() => {
+                  removeFriend();
+                }}
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M22 6.25V11.35C22 12.62 21.58 13.69 20.83 14.43C20.09 15.18 19.02 15.6 17.75 15.6V17.41C17.75 18.09 16.99 18.5 16.43 18.12L15.46 17.48C15.55 17.17 15.59 16.83 15.59 16.47V12.4C15.59 10.36 14.23 9 12.19 9H5.39999C5.25999 9 5.13 9.01002 5 9.02002V6.25C5 3.7 6.7 2 9.25 2H17.75C20.3 2 22 3.7 22 6.25Z"
-                    stroke="#ffffff"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                  ></path>{" "}
-                  <path
-                    d="M15.59 12.4V16.47C15.59 16.83 15.55 17.17 15.46 17.48C15.09 18.95 13.87 19.87 12.19 19.87H9.47L6.45 21.88C6 22.19 5.39999 21.86 5.39999 21.32V19.87C4.37999 19.87 3.53 19.53 2.94 18.94C2.34 18.34 2 17.49 2 16.47V12.4C2 10.5 3.18 9.19002 5 9.02002C5.13 9.01002 5.25999 9 5.39999 9H12.19C14.23 9 15.59 10.36 15.59 12.4Z"
-                    stroke="#ffffff"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <circle
+                      cx="12"
+                      cy="6"
+                      r="4"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                    ></circle>{" "}
+                    <circle
+                      cx="18"
+                      cy="16"
+                      r="4"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                    ></circle>{" "}
+                    <path
+                      d="M16.6665 16L17.5 17L19.3332 15.1111"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M15 13.3271C14.0736 13.1162 13.0609 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C17.6874 22 19.3315 20.9817 19.8068 19.5"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                    ></path>{" "}
+                  </g>
+                </svg>
+                <div className="btn-text">Friends</div>
+              </button>
+              <button>
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-              <div className="btn-text">Message</div>
-            </button>
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M22 6.25V11.35C22 12.62 21.58 13.69 20.83 14.43C20.09 15.18 19.02 15.6 17.75 15.6V17.41C17.75 18.09 16.99 18.5 16.43 18.12L15.46 17.48C15.55 17.17 15.59 16.83 15.59 16.47V12.4C15.59 10.36 14.23 9 12.19 9H5.39999C5.25999 9 5.13 9.01002 5 9.02002V6.25C5 3.7 6.7 2 9.25 2H17.75C20.3 2 22 3.7 22 6.25Z"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                    <path
+                      d="M15.59 12.4V16.47C15.59 16.83 15.55 17.17 15.46 17.48C15.09 18.95 13.87 19.87 12.19 19.87H9.47L6.45 21.88C6 22.19 5.39999 21.86 5.39999 21.32V19.87C4.37999 19.87 3.53 19.53 2.94 18.94C2.34 18.34 2 17.49 2 16.47V12.4C2 10.5 3.18 9.19002 5 9.02002C5.13 9.01002 5.25999 9 5.39999 9H12.19C14.23 9 15.59 10.36 15.59 12.4Z"
+                      stroke="#ffffff"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                  </g>
+                </svg>
+                <div className="btn-text">Message</div>
+              </button>
+            </>
           )}
           {isMe && (
             <button>
@@ -462,7 +571,16 @@ export default function Profile() {
       <span className="horizontal-line"></span>
       <div className="others">
         {!isFriend && !isMe && <PrivateAccount />}{" "}
-        {(isFriend || isMe) && <UserData {...user} />}
+        {(isFriend || isMe) && (
+          <>
+            <UserData {...user} />
+            <div className="user-posts">
+              {posts.map((post) => (
+                <Post post={post} myUsername={user.name} socket={socket} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
       {isEdit && <EditProfile {...myData} setIsEdit={setIsEdit} />}
     </div>

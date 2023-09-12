@@ -1,0 +1,79 @@
+.NewGroup {
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999999999999999999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NewGroup .wrapper {
+  position: relative;
+  padding: 10px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  animation: show-options 0.5s;
+}
+.NewGroup .wrapper .title {
+  font-size: 24px;
+  font-weight: 600;
+  width: 95%;
+  text-align: left;
+  padding: 5px;
+}
+
+.NewGroup .wrapper input {
+  outline: none;
+  border: none;
+  background-color: aliceblue;
+  padding: 10px;
+  width: 90%;
+  border-radius: var(--border-radius);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.NewGroup .wrapper .btn-container {
+  padding: 5px;
+  width: 100%;
+}
+
+.NewGroup .wrapper button {
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  margin-right: 5px;
+  padding: 5px;
+  width: 75px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(57, 120, 183) 50%,
+    #165496 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  float: right;
+  transition: background 0.5s ease;
+}
+
+.NewGroup .wrapper button:hover {
+  background-position: 100%;
+}
+.NewGroup #close {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  opacity: 0.3;
+}

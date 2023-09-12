@@ -24,7 +24,7 @@ export default function Posts({ myUsername, friends, socket }) {
   return (
     <div className="Posts">
       {posts.map((post, index) => {
-        return <Post post={post} />;
+        return <Post post={post} myUsername={myUsername} socket={socket} />;
       })}
     </div>
   );

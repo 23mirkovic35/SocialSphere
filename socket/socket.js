@@ -48,12 +48,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("acceptFriendRequest", ({ sender, receiver }) => {
+    console.log(sender + " has accepted " + receiver + " friend requests");
     const receiverUser = getUser(receiver);
     io.to(receiverUser.socketId).emit("getFriendRequestAcceptedNotification", {
       sender,
       receiver,
     });
-    console.log(sender + " has accepted friend request from " + receiver);
   });
 
   socket.on("getOnlineFriends", ({ myUsername }) => {
@@ -61,6 +61,22 @@ io.on("connection", (socket) => {
     let array = onlineUsers.filter((user) => user.userId !== myUsername);
     const userId = getUser(myUsername);
     io.to(userId.socketId).emit("allOnlineUsers", array);
+  });
+
+  socket.on("postLiked", ({ sender, receiver, postId }) => {
+    console.log(sender + " has liked " + receiver + " post " + postId);
+    const user = getUser(receiver);
+    io.to(user.socketId).emit("PostIsLiked", { sender, receiver, postId });
+  });
+
+  socket.on("newPostComment", ({ sender, receiver, postId }) => {
+    console.log(sender + " has commented your post with id " + postId);
+    const userId = getUser(receiver);
+    io.to(userId.socketId).emit("commentNotification", {
+      sender: sender,
+      receiver: receiver,
+      postId: postId,
+    });
   });
 
   socket.on("disconnect", () => {

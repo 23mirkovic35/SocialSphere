@@ -1,16 +1,41 @@
 .SearchBox {
+  background-color: rgb(96, 155, 215);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.SearchBox input[type="checkbox"] {
+  display: none;
+}
+.SearchBox input[type="checkbox"]:checked ~ .search-container {
+  visibility: visible;
+  animation: show-options 0.5s;
+}
+.SearchBox .search-container {
+  visibility: hidden;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
+  top: calc(100% + 17px);
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .SearchBox input {
   outline: none;
-  width: 90%;
-  padding: 15px;
-  padding-left: 40px;
-  border: 1px solid rgba(128, 128, 128, 0.185);
+  border: none;
+  background-color: aliceblue;
+  width: 100%;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -91,7 +116,7 @@
   width: 100%;
   left: calc(50% + 6px);
   transform: translate(-50%);
-  height: 350px;
+  height: fit-content;
   background-color: white;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);

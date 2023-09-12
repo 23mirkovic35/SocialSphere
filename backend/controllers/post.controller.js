@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const post = require("../models/post.js");
 class PostController {
   newPost = (req, res) => {
-    console.log(req.body);
     const { username, name, type, text, images, videos, date } = req.body;
     const insert = {
       _id: new mongoose.Types.ObjectId(),
@@ -64,6 +63,62 @@ class PostController {
         console.error(error);
         // res.status(500).json({ error: "Internal Server Error" });
       });
+  };
+  updateLikes = (req, res) => {
+    const { _id, likes } = req.body;
+    const filter = { _id: _id };
+    const update = { likes: likes };
+    post
+      .findOneAndUpdate(filter, update, { new: true })
+      .then((result) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  updateComments = (req, res) => {
+    const { _id, comments } = req.body;
+    const filter = { _id: _id };
+    const update = { comments: comments };
+    post
+      .findOneAndUpdate(filter, update, { new: true })
+      .then((result) => res.json())
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  userPosts = (req, res) => {
+    const { username } = req.body;
+    const filter = { username: username };
+    post
+      .find(filter)
+      .then((posts) => res.json(posts))
+      .catch((error) => console.log(error));
+  };
+  getUserImages = (req, res) => {
+    const { username } = req.body;
+    const filter = { username: username };
+    post
+      .find(filter)
+      .then((posts) => {
+        let images = [];
+        posts.forEach((post) => {
+          if (post.type === 1) {
+            images.push(...post.images);
+          }
+        });
+        res.json(images);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  getPost = (req, res) => {
+    const postId = req.body._id;
+    const _id = postId.postId;
+    const filter = { _id: _id };
+    post
+      .findOne(filter)
+      .then((data) => res.json(data))
+      .catch((error) => console.log(error));
   };
 }
 

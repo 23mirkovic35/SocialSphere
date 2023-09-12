@@ -110,6 +110,7 @@ class UserController {
           username: result.username,
           profilePicture: result.profilePicture,
         };
+        console.log(obj);
         res.json(obj);
       })
       .catch((error) => console.log(error));
@@ -147,6 +148,22 @@ class UserController {
       })
       .catch((error) => console.log(error));
   };
+  rejectFriendRequest = (req, res) => {
+    const { myUsername, friendUsername } = req.body;
+    const query_me = { username: myUsername };
+    const update_me = { $pull: { friendRequests: friendUsername } };
+    const query_friend = { username: friendUsername };
+    const update_friend = { $pull: { myRequests: myUsername } };
+    user
+      .findOneAndUpdate(query_me, update_me, { new: true })
+      .then((result) => {
+        user
+          .findOneAndUpdate(query_friend, update_friend, { new: true })
+          .then((result) => res.json(result))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  };
   addNotification = (req, res) => {
     const { username, myUsername } = req.body;
     const query = { username: myUsername };
@@ -172,7 +189,7 @@ class UserController {
     const query = { username: username };
     user
       .findOne(query)
-      .then((result) => res.json(result.profilePicture))
+      .then((result) => res.json(result?.profilePicture))
       .catch((error) => console.log(error));
   };
 
@@ -242,6 +259,22 @@ class UserController {
     user
       .findOneAndUpdate(filter, update, options)
       .then((result) => {})
+      .catch((error) => console.log(error));
+  };
+  removeFriend = (req, res) => {
+    const { myUsername, friendUsername } = req.body;
+    const query_me = { username: myUsername };
+    const update_me = { $pull: { friends: friendUsername } };
+    const query_friend = { username: friendUsername };
+    const update_friend = { $pull: { friends: myUsername } };
+    user
+      .findOneAndUpdate(query_me, update_me, { new: true })
+      .then((result) => {
+        user
+          .findOneAndUpdate(query_friend, update_friend, { new: true })
+          .then((result) => res.json(result))
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
 }

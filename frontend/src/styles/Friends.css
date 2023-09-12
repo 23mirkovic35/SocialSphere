@@ -1,0 +1,122 @@
+.Friends {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.Friends .friend-container {
+  width: 100%;
+  padding: 10px;
+}
+
+.Friends .title {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.Friends .title .text {
+  font-size: 24px;
+  font-weight: 600;
+}
+.Friends .title .friend-number {
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #3978b7;
+}
+.Friends .title .friend-number .value {
+  margin-left: 5px;
+}
+.Friends .title .friend-number span {
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: #3978b7;
+  margin-top: 2px;
+}
+.Friends .friend-container .requests {
+  padding: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.Friends .friend-container .request {
+  width: fit-content;
+  position: relative;
+  margin: 5px;
+}
+.Friends .friend-container .request .name {
+  background-color: #1b335897;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 4px;
+  border-radius: var(--border-radius);
+  width: calc(100% - 20px);
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+.Friends .friend-container .request .name:hover {
+  background-color: #1b3358;
+}
+.Friends .friend-container .request .btn-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.Friends button {
+  width: 50%;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Friends #accept-fr {
+  border-top-left-radius: var(--border-radius);
+  background-color: rgba(23, 127, 87, 0.3);
+  transition: background 0.5s ease;
+}
+.Friends #accept-fr:hover {
+  background-color: rgb(6, 86, 55);
+}
+.Friends #reject-fr {
+  border-top-right-radius: var(--border-radius);
+  background-color: rgba(127, 23, 23, 0.3);
+  transition: background 0.5s ease;
+}
+.Friends #reject-fr:hover {
+  background-color: rgb(86, 6, 6);
+}
+.Friends #cancle-fr {
+  background-color: #25252581;
+  width: 100%;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.Friends #cancle-fr:hover {
+  background-color: #252525;
+}
+.Friends img {
+  object-fit: cover;
+  width: 150px;
+  height: 200px;
+  border-radius: var(--border-radius);
+}

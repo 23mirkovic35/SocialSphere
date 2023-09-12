@@ -159,4 +159,9 @@
 }
 .Profile .others {
   padding: 20px;
+  display: flex;
+}
+
+.Profile .others .user-posts {
+  width: 60%;
 }

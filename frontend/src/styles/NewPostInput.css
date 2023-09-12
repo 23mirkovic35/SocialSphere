@@ -1,7 +1,7 @@
 .NewPostInput {
   margin-top: 20px;
   background-color: white;
-  width: 600px;
+  width: 60%;
   padding: 10px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);

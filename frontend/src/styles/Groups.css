@@ -1,0 +1,85 @@
+.Groups {
+  height: 100%;
+  padding: 10px;
+}
+.Groups .groups-header {
+  margin-top: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.Groups .groups-header .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+.Groups .groups-header .number {
+  margin-left: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.Groups .groups-header .number span {
+  margin-right: 5px;
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: #3978b7;
+  margin-top: 2px;
+}
+.Groups .groups-header .number .text {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #3978b7;
+}
+
+.Groups .groups-box {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Groups .groups-box .admin-icon {
+  position: absolute;
+  top: 0;
+  left: 5px;
+}
+
+.Groups .groups-box .field {
+  position: relative;
+  margin: 5px;
+  padding: 10px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(235, 245, 254) 50%,
+    rgba(0, 119, 255, 0.3) 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #000;
+  width: calc(25% - 30px);
+  transition: background 0.5s ease;
+}
+
+.Groups .groups-box .field:hover {
+  background-position: 100%;
+}
+.Groups .groups-box .field svg {
+  margin-right: 5px;
+}

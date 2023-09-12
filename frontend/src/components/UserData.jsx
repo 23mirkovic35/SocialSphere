@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import "../styles/UserData.css";
 export default function UserData(props) {
-  const { city, country, birthday, biography, friends, posts } = props;
+  const { username, city, country, birthday, biography, friends, posts } =
+    props;
 
   function formatDate(inputDate) {
     if (inputDate === undefined) return;
@@ -12,6 +13,14 @@ export default function UserData(props) {
     const formattedDate = `${day}.${month}.${year}`;
     return formattedDate;
   }
+
+  const linkToFriends = () => {
+    window.location.href = `http://localhost:3000/mySphere/friends/${username}`;
+  };
+
+  const linkToImageGallery = () => {
+    window.location.href = `http://localhost:3000/mySphere/images/${username}`;
+  };
 
   return (
     <div className="UserData">
@@ -85,7 +94,12 @@ export default function UserData(props) {
         </svg>
         <div className="value">{formatDate(birthday)}</div>
       </div>
-      <div className="field friends">
+      <div
+        className="field friends"
+        onClick={() => {
+          linkToFriends();
+        }}
+      >
         <div className="text-icon">
           <svg
             height={20}
@@ -120,7 +134,12 @@ export default function UserData(props) {
         </div>
         {friends && <div className="number">{friends.length}</div>}
       </div>
-      <div className="field images">
+      <div
+        className="field images"
+        onClick={() => {
+          linkToImageGallery();
+        }}
+      >
         <div className="text-icon">
           <svg
             height={20}

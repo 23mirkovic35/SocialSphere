@@ -8,7 +8,7 @@ const userRouter = require("./routes/user.routes.js");
 const mailRouter = require("./routes/mail.routes.js");
 const emojiRouter = require("./routes/emoji.routes.js");
 const postRouter = require("./routes/post.routes.js");
-
+const groupRouter = require("./routes/group.routes.js");
 mongoose
   .connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -27,6 +27,7 @@ router.use("/users", userRouter);
 router.use("/send-mail", mailRouter);
 router.use("/emojis", emojiRouter);
 router.use("/posts", postRouter);
+router.use("/groups", groupRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);

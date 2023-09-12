@@ -6,7 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import EmojiSelector from "./EmojiSelector";
 
 export default function NewPostInput(props) {
-  const { myData, socket, setNewPosts } = props;
+  const { myData, socket, setNewPosts, isGroup, groupId } = props;
   const [text, setText] = useState("");
   const [images, setImages] = useState([]);
   const [photosURL, setPhotosURL] = useState([]);
@@ -105,10 +105,20 @@ export default function NewPostInput(props) {
       comments: [],
       date: new Date(),
     };
-    await axios.post("http://localhost:5000/posts/newPost", data);
-    setNewPosts((prevState) => {
-      return [data, ...prevState];
-    });
+    if (isGroup) {
+      await axios.post("http://localhost:5000/groups/newPost", {
+        ...data,
+        groupId,
+      });
+      setNewPosts((prevState) => {
+        return [data, ...prevState];
+      });
+    } else {
+      await axios.post("http://localhost:5000/posts/newPost", data);
+      setNewPosts((prevState) => {
+        return [data, ...prevState];
+      });
+    }
     setText("");
     setImages([]);
     setPhotosURL([]);

@@ -59,7 +59,7 @@ export default function PhotoTaker(props) {
     <div className="PhotoTaker">
       <div className="camera">
         <video ref={videoRef}></video>
-        <button onClick={takePhoto}>SNAP!</button>
+        <button onClick={takePhoto}>SNAP</button>
       </div>
       <div className={"result" + (hasPhoto ? " hasPhoto" : "")}>
         <canvas ref={photoRef}></canvas>

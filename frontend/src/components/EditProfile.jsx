@@ -138,8 +138,10 @@ export default function EditProfile(props) {
     };
     if (newProfilePicture !== profilePicture)
       newData.profilePicture = await uploadProfileImage();
-    if (newBackgroundPicture !== profilePicture)
+    if (newBackgroundPicture !== profilePicture) {
       newData.backgroundPicture = await uploadBackgroundImage();
+    }
+
     axios.post("http://localhost:5000/users/updateUserData", newData);
     window.location.reload();
   }

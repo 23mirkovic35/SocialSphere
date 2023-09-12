@@ -30,6 +30,27 @@ export default function PostNotifications(props) {
           });
         }
       );
+      socket.on("PostIsLiked", ({ sender, receiver, postId }) => {
+        console.log(sender + " has liked your post " + postId);
+        DB_getData(sender, 2, postId);
+        DB_writeInDB(receiver, sender);
+        DB_getUserProfilePicture({
+          sender: sender,
+          text: " has liked your post.",
+        });
+      });
+
+      socket.on("commentNotification", ({ sender, receiver, postId }) => {
+        console.log(
+          sender + " has commented your post " + postId + " " + receiver
+        );
+        DB_getData(sender, 3, postId);
+        DB_writeInDB(receiver, sender);
+        DB_getUserProfilePicture({
+          sender: sender,
+          text: " has commented your post.",
+        });
+      });
     }
   }, [socket]);
 
@@ -37,7 +58,7 @@ export default function PostNotifications(props) {
     console.log(notifications);
   }, [notifications]);
 
-  async function DB_getData(username, from) {
+  async function DB_getData(username, from, postId) {
     const response = await axios.post(
       "http://localhost:5000/users/searchByUsername",
       {
@@ -48,8 +69,26 @@ export default function PostNotifications(props) {
     if (from === 1) {
       setPopup({
         show: true,
-        text: " has accepted your friend request.",
+        text: " has accepted your friend requests.",
         type: "request",
+        username: response.data.username,
+        profilePicture: response.data.profilePicture,
+      });
+    } else if (from === 2) {
+      setPopup({
+        show: true,
+        text: " has liked your post.",
+        type: "post",
+        postId: postId,
+        username: response.data.username,
+        profilePicture: response.data.profilePicture,
+      });
+    } else if (from === 3) {
+      setPopup({
+        show: true,
+        text: " has commented your post.",
+        type: "post",
+        postId: postId,
         username: response.data.username,
         profilePicture: response.data.profilePicture,
       });
