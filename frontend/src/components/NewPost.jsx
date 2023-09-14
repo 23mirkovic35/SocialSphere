@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Post.css";
 import "swiper/css"; // Import Swiper styles
 import "swiper/css/navigation"; // Import additional modules if needed
 import "swiper/css/pagination"; // Import additional modules if needed
 import { Swiper, SwiperSlide } from "swiper/react";
+import NewComment from "./NewComment";
 
 export default function NewPost(props) {
-  const { post, myData, socket } = props;
+  const { post, myData, socket, isGroup, groupId } = props;
+  const [comments, setComments] = useState([]);
 
   function formatTimeDifference(timeStr) {
     const currentTime = new Date();
@@ -175,6 +177,16 @@ export default function NewPost(props) {
             <div className="number">{post.comments.length}</div>
           </div>
         </div>
+        <NewComment
+          setComments={setComments}
+          socket={socket}
+          myUsername={myData.username}
+          postId={post._id}
+          comments={comments}
+          postUsername={post.username}
+          isGroup={isGroup}
+          groupId={groupId}
+        />
       </div>
     </div>
   );

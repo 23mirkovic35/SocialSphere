@@ -11,9 +11,11 @@ function Feed() {
   return (
     <div className="Feed">
       <NewPostInput myData={myData} socket={socket} setNewPosts={setNewPosts} />
-      {newPosts.map((post, index) => (
-        <NewPost post={post} socket={socket} myData={myData} />
-      ))}
+      <div className="new-posts">
+        {newPosts.map((post, index) => (
+          <NewPost post={post} socket={socket} myData={myData} />
+        ))}
+      </div>
       <Posts
         myUsername={myData.username}
         friends={myData.friends}

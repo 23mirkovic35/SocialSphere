@@ -9,6 +9,8 @@ export default function NewComment({
   postId,
   comments,
   postUsername,
+  isGroup,
+  groupId,
 }) {
   const [text, setText] = useState("");
   const [textareaStyle, setTextareaStyle] = useState({
@@ -41,20 +43,40 @@ export default function NewComment({
       _id: postId,
     };
 
-    axios
-      .post("http://localhost:5000/posts/updateComments", data)
-      .then((response) => {
-        setComments((prevState) => [...prevState, newComment]);
-        alert(postUsername + " " + myUsername);
-        if (myUsername !== postUsername) {
-          socket.emit("newPostComment", {
-            sender: myUsername,
-            receiver: postUsername,
-            postId: postId,
-          });
-        }
-      })
-      .catch((error) => console.log(error));
+    if (isGroup) {
+      axios
+        .post("http://localhost:5000/groups/updatePostComments", {
+          ...data,
+          groupId,
+        })
+        .then((response) => {
+          setComments((prevState) => [...prevState, newComment]);
+          alert(postUsername + " " + myUsername);
+          if (myUsername !== postUsername) {
+            socket.emit("newPostComment", {
+              sender: myUsername,
+              receiver: postUsername,
+              postId: postId,
+            });
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      axios
+        .post("http://localhost:5000/posts/updateComments", data)
+        .then((response) => {
+          setComments((prevState) => [...prevState, newComment]);
+          alert(postUsername + " " + myUsername);
+          if (myUsername !== postUsername) {
+            socket.emit("newPostComment", {
+              sender: myUsername,
+              receiver: postUsername,
+              postId: postId,
+            });
+          }
+        })
+        .catch((error) => console.log(error));
+    }
     setText("");
   };
 

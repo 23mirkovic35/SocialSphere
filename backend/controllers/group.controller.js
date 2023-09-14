@@ -87,6 +87,55 @@ class GroupController {
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   };
+  updatePostLikes = (req, res) => {
+    const { likes, _id, groupId } = req.body;
+    const filter = {
+      _id: groupId,
+    };
+    group
+      .findOne(filter)
+      .then((result) => {
+        let posts = result.posts;
+        const index = posts.findIndex(
+          (post) => post._id.toString() === _id.toString()
+        );
+
+        posts[index].likes = likes;
+        const update = { posts: posts };
+        group
+          .findOneAndUpdate(filter, update)
+          .then((result) => {
+            /*console.log(result)*/
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  updatePostComments = (req, res) => {
+    const { groupId, _id, comments } = req.body;
+    const filter = {
+      _id: groupId,
+    };
+    group
+      .findOne(filter)
+      .then((result) => {
+        let posts = result.posts;
+        const index = posts.findIndex(
+          (post) => post._id.toString() === _id.toString()
+        );
+
+        posts[index].comments = comments;
+        const update = { posts: posts };
+        group
+          .findOneAndUpdate(filter, update)
+          .then((result) => {
+            res.json();
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  };
 }
 
 module.exports = GroupController;

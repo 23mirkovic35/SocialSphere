@@ -11,6 +11,8 @@ export default function ViewComments({
   postId,
   setShowCommentSection,
   postUsername,
+  isGroup,
+  groupId,
 }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -182,6 +184,8 @@ export default function ViewComments({
             postId={postId}
             comments={comments}
             postUsername={postUsername}
+            isGroup={isGroup}
+            groupId={groupId}
           />
         </div>
       </div>

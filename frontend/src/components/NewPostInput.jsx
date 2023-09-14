@@ -76,7 +76,9 @@ export default function NewPostInput(props) {
   async function uploadImages() {
     for (let i = 0; i < images.length; i++) {
       let imgName = myData.username + "_" + new Date().getTime();
-      const imgRef = ref(storage, `${myData.username}/posts/${imgName}`);
+      const imgRef = isGroup
+        ? ref(storage, `/groups/${groupId}/${imgName}`)
+        : ref(storage, `${myData.username}/posts/${imgName}`);
       try {
         await uploadBytes(imgRef, images[i]);
         const url = await getDownloadURL(imgRef);
@@ -106,23 +108,35 @@ export default function NewPostInput(props) {
       date: new Date(),
     };
     if (isGroup) {
-      await axios.post("http://localhost:5000/groups/newPost", {
-        ...data,
-        groupId,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/groups/newPost",
+        {
+          ...data,
+          groupId,
+        }
+      );
+      restartFields();
       setNewPosts((prevState) => {
         return [data, ...prevState];
       });
     } else {
-      await axios.post("http://localhost:5000/posts/newPost", data);
+      const response = await axios.post(
+        "http://localhost:5000/posts/newPost",
+        data
+      );
+      restartFields();
       setNewPosts((prevState) => {
         return [data, ...prevState];
       });
     }
+    alert("mire");
+  }
+
+  const restartFields = () => {
     setText("");
     setImages([]);
     setPhotosURL([]);
-  }
+  };
 
   return (
     <div className="NewPostInput">

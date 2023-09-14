@@ -5,6 +5,7 @@ import axios from "axios";
 import NewPostInput from "../components/NewPostInput";
 import Post from "../components/Post";
 import NewPost from "../components/NewPost";
+import "../styles/GrpoupPage.css";
 
 export default function GroupPage() {
   const { myData, socket } = useUserAndSocket();
@@ -54,7 +55,7 @@ export default function GroupPage() {
           </div>
         </div>
       )}
-      <div className="posts">
+      <div className="new-post">
         <NewPostInput
           myData={myData}
           socket={socket}
@@ -65,9 +66,17 @@ export default function GroupPage() {
         {newPosts.map((post, index) => (
           <NewPost post={post} socket={socket} myData={myData} />
         ))}
+      </div>
+      <div className="posts">
         {groupData &&
           groupData.posts.map((post, index) => (
-            <Post post={post} myUsername={myData.username} socket={socket} />
+            <Post
+              post={post}
+              myUsername={myData.username}
+              socket={socket}
+              isGroup={true}
+              groupId={groupId}
+            />
           ))}
       </div>
     </div>

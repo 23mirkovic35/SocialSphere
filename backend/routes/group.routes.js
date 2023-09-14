@@ -26,4 +26,12 @@ groupRouter
   .route("/newPost")
   .post((req, res) => new groupController().newPost(req, res));
 
+groupRouter
+  .route("/updatePostLikes")
+  .post((req, res) => new groupController().updatePostLikes(req, res));
+
+groupRouter
+  .route("/updatePostComments")
+  .post((req, res) => new groupController().updatePostComments(req, res));
+
 module.exports = groupRouter;

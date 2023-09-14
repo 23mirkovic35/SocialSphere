@@ -1,0 +1,50 @@
+.GroupPage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.GroupPage .posts {
+  width: 60%;
+}
+
+.GroupPage .new-post {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.GroupPage .page-header {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.GroupPage .page-header .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.GroupPage .page-header .post-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3978b7;
+}
+
+.GroupPage .page-header .post-number span {
+  margin-right: 5px;
+  margin-left: 5px;
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: #3978b7;
+  margin-top: 2px;
+}

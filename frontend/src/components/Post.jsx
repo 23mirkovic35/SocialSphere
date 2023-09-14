@@ -9,7 +9,7 @@ import ViewComments from "./ViewComments";
 import NewComment from "./NewComment";
 
 export default function Post(props) {
-  const { post, myUsername, socket } = props;
+  const { post, myUsername, socket, isGroup, groupId } = props;
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [name, setName] = useState("");
@@ -119,10 +119,12 @@ export default function Post(props) {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/posts/updateLikes",
-        data
-      );
+      const response = isGroup
+        ? await axios.post("http://localhost:5000/groups/updatePostLikes", {
+            ...data,
+            groupId,
+          })
+        : await axios.post("http://localhost:5000/posts/updateLikes", data);
     } catch (error) {
       console.error(error);
     }
@@ -144,6 +146,8 @@ export default function Post(props) {
           myUsername={myUsername}
           postId={post._id}
           postUsername={post.username}
+          isGroup={isGroup}
+          groupId={groupId}
         />
       )}
       <div className="post-header">
@@ -268,6 +272,8 @@ export default function Post(props) {
           postId={post._id}
           comments={comments}
           postUsername={post.username}
+          isGroup={isGroup}
+          groupId={groupId}
         />
       </div>
     </div>
