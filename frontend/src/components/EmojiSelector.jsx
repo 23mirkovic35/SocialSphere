@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/EmojiSelector.css";
 import axios from "axios";
 
-export default function EmojiSelector(props) {
-  const { setText, absolute } = props;
-
+export default function EmojiSelector({ setText }) {
   const [emojiArray, setEmojiArray] = useState([]);
   useEffect(() => {
     const emojiSearch = document.getElementById("emoji_search");
@@ -40,12 +38,12 @@ export default function EmojiSelector(props) {
     });
   };
   return (
-    <div className={"EmojiSelector" + (absolute ? " absolute" : "")}>
+    <div className="EmojiSelector">
       <input type="checkbox" name="cb_emoji" id="cb_emoji" />
       <label htmlFor="cb_emoji">
         <svg
-          height={20}
-          width={20}
+          height="25px"
+          width="25px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

@@ -66,6 +66,7 @@ class PostController {
   };
   updateLikes = (req, res) => {
     const { _id, likes } = req.body;
+    console.log("MIRE");
     const filter = { _id: _id };
     const update = { likes: likes };
     post

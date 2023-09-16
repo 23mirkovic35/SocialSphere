@@ -1,8 +1,5 @@
 .EmojiSelector {
-  position: absolute;
-  top: 13px;
-  right: 5px;
-  border-radius: 50%;
+  position: relative;
 }
 .EmojiSelector #cb_emoji {
   display: none;
@@ -11,10 +8,14 @@
   visibility: visible;
   animation: emoji-show 0.5s;
 }
+.EmojiSelector label {
+  cursor: pointer;
+}
 .EmojiSelector .emoji-box {
   visibility: hidden;
   position: absolute;
-  right: 0;
+  z-index: 1111111111111111111111111111111;
+  bottom: calc(100% + 10px);
   background-color: white;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);

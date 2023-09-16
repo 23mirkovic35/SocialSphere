@@ -12,6 +12,7 @@ import ImageGallery from "./pages/ImageGallery";
 import ViewPost from "./components/ViewPost";
 import Groups from "./pages/Groups";
 import GroupPage from "./pages/GroupPage";
+import Messages from "./pages/Messages";
 const App = () => {
   return (
     <Router>
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="post/:postId" element={<ViewPost />} />
             <Route path="groups/:username" element={<Groups />} />
             <Route path="group/:groupId" element={<GroupPage />} />
+            <Route path="messages/:username" element={<Messages />} />
           </Route>
         </Routes>
       </div>

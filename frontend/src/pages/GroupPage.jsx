@@ -63,9 +63,17 @@ export default function GroupPage() {
           isGroup={true}
           groupId={groupId}
         />
-        {newPosts.map((post, index) => (
-          <NewPost post={post} socket={socket} myData={myData} />
-        ))}
+        <div className="new-posts">
+          {newPosts.map((post, index) => (
+            <NewPost
+              post={post}
+              socket={socket}
+              myData={myData}
+              isGroup={true}
+              groupId={groupId}
+            />
+          ))}
+        </div>
       </div>
       <div className="posts">
         {groupData &&

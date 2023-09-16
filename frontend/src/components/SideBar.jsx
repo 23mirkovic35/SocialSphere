@@ -16,6 +16,9 @@ export default function SideBar(props) {
   const linkToGroups = () => {
     window.location.href = `http://localhost:3000/mySphere/groups/${myData.username}`;
   };
+  const linkToMessages = () => {
+    window.location.href = `http://localhost:3000/mySphere/messages/${myData.username}`;
+  };
   return (
     <div className="SideBar">
       <div className="field user" onClick={linkToProfile}>
@@ -94,7 +97,7 @@ export default function SideBar(props) {
         </svg>
         <div className="text">Notifications</div>
       </div>
-      <div className="field">
+      <div className="field" onClick={() => linkToMessages()}>
         <svg
           height={20}
           width={20}

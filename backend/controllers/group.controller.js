@@ -84,7 +84,7 @@ class GroupController {
     };
     group
       .findOneAndUpdate(filter, update)
-      .then((result) => console.log(result))
+      .then((result) => res.json(result))
       .catch((err) => console.log(err));
   };
   updatePostLikes = (req, res) => {

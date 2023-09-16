@@ -1,0 +1,41 @@
+.MessagesSideBar {
+  height: 100%;
+  width: 30%;
+  padding: 10px;
+}
+.MessagesSideBar .search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 5px;
+}
+.MessagesSideBar .search-box svg {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.MessagesSideBar .search-box input {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 10px;
+  padding-left: 35px;
+  background-color: aliceblue;
+  border-radius: var(--border-radius);
+}
+
+.MessagesSideBar .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-top: 15px;
+  width: 100%;
+}
+.MessagesSideBar .title .text {
+  font-size: 24px;
+  font-weight: 600;
+}

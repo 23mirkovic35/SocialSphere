@@ -1,0 +1,93 @@
+.NewMessageInput {
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50;
+}
+.NewMessageInput textarea {
+  resize: none;
+  padding: 5px;
+  outline: none;
+  border: none;
+  background-color: aliceblue;
+  border-radius: var(--border-radius);
+  width: 90%;
+}
+
+.NewMessageInput input[type="checkbox"] {
+  display: none;
+}
+.NewMessageInput .options {
+  display: flex;
+}
+.NewMessageInput .options .files {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.NewMessageInput .files input[type="checkbox"]:checked ~ ul {
+  visibility: visible;
+}
+.NewMessageInput .options .files ul {
+  visibility: hidden;
+  background-color: white;
+  padding: 10px;
+  position: absolute;
+  bottom: calc(100% - 10px);
+  list-style: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.NewMessageInput .options .files ul li {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.NewMessageInput .options .files ul li .text {
+  margin-left: 5px;
+}
+
+.NewMessageInput input[type="text"] {
+  background-color: aliceblue;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 80%;
+  outline: none;
+  border: none;
+  margin-bottom: 5px;
+  border-radius: var(--border-radius);
+}
+.NewMessageInput button {
+  margin-bottom: 5px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(57, 120, 183) 50%,
+    #165496 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  border-radius: var(--border-radius);
+  transition: 0.5s ease;
+}
+.NewMessageInput button:hover {
+  background-position: 100%;
+}

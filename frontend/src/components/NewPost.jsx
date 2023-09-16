@@ -1,55 +1,85 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Post.css";
 import "swiper/css"; // Import Swiper styles
 import "swiper/css/navigation"; // Import additional modules if needed
 import "swiper/css/pagination"; // Import additional modules if needed
 import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
+import ViewComments from "./ViewComments";
 import NewComment from "./NewComment";
 
 export default function NewPost(props) {
-  const { post, myData, socket, isGroup, groupId } = props;
+  const { post, myUsername, socket, isGroup, groupId } = props;
+  const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
+  const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+  const [showCommentSection, setShowCommentSection] = useState(false);
+
+  useEffect(() => {
+    const username = post.username;
+
+    axios
+      .post("http://localhost:5000/users/searchByUsername", {
+        username: username,
+      })
+      .then((response) => {
+        setName(response.data.name);
+        setProfilePicture(response.data.profilePicture);
+        console.log(response.data);
+        setIsLiked(post.likes.some((like) => like === myUsername));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (post) {
+      setLikes(post.likes);
+      setComments(post.comments);
+    }
+  }, [post]);
 
   function formatTimeDifference(timeStr) {
     const currentTime = new Date();
     const time = new Date(timeStr);
     const timeDiffInSeconds = Math.floor((currentTime - time) / 1000);
-
+    let retVal = "";
     if (timeDiffInSeconds < 60) {
-      if (timeDiffInSeconds === 0) {
-        return "just now";
-      } else if (timeDiffInSeconds === 1) {
-        return "one second ago";
+      if (timeDiffInSeconds === 1) {
+        retVal = "one second ago";
       } else {
-        return `${timeDiffInSeconds} seconds ago`;
+        retVal = `${timeDiffInSeconds} seconds ago`;
       }
     } else if (timeDiffInSeconds < 3600) {
       const minutes = Math.floor(timeDiffInSeconds / 60);
       if (minutes === 1) {
-        return "one minute ago";
+        retVal = "one minute ago";
       } else {
-        return `${minutes} minutes ago`;
+        retVal = `${minutes} minutes ago`;
       }
     } else if (timeDiffInSeconds < 86400) {
       const hours = Math.floor(timeDiffInSeconds / 3600);
       if (hours === 1) {
-        return "one hour ago";
+        retVal = "one hour ago";
       } else {
-        return `${hours} hours ago`;
+        retVal = `${hours} hours ago`;
       }
     } else if (timeDiffInSeconds < 604800) {
       const days = Math.floor(timeDiffInSeconds / 86400);
       if (days === 1) {
-        return "one day ago";
+        retVal = "one day ago";
       } else {
-        return `${days} days ago`;
+        retVal = `${days} days ago`;
       }
     } else if (timeDiffInSeconds < 2419200) {
       const weeks = Math.floor(timeDiffInSeconds / 604800);
       if (weeks === 1) {
-        return "one week ago";
+        retVal = "one week ago";
       } else {
-        return `${weeks} weeks ago`;
+        retVal = `${weeks} weeks ago`;
       }
     } else {
       const formattedDate = time.toLocaleDateString("en-US", {
@@ -59,18 +89,72 @@ export default function NewPost(props) {
         minute: "numeric",
         hour12: true,
       });
-      return `${formattedDate}`;
+      retVal = `${formattedDate}`;
+    }
+    return retVal;
+  }
+
+  async function handleLike() {
+    const newIsLiked = !isLiked;
+    if (newIsLiked && post.username !== myUsername) {
+      socket.emit("postLiked", {
+        sender: myUsername,
+        receiver: post.username,
+        postId: post._id,
+      });
+    }
+    setIsLiked(newIsLiked);
+    let newLikes = [...likes];
+
+    if (newLikes.some((username) => username === myUsername)) {
+      newLikes = newLikes.filter((username) => username !== myUsername);
+    } else {
+      newLikes.push(myUsername);
+    }
+    setLikes(newLikes);
+
+    const data = {
+      likes: newLikes,
+      _id: post._id,
+    };
+
+    try {
+      const response = isGroup
+        ? await axios.post("http://localhost:5000/groups/updatePostLikes", {
+            ...data,
+            groupId,
+          })
+        : await axios.post("http://localhost:5000/posts/updateLikes", data);
+    } catch (error) {
+      console.error(error);
     }
   }
 
+  const viewPost = () => {
+    setShowCommentSection(true);
+  };
+
   return (
     <div className="Post">
+      {showCommentSection && (
+        <ViewComments
+          setShowCommentSection={setShowCommentSection}
+          comments={comments}
+          name={name}
+          setComments={setComments}
+          socket={socket}
+          myUsername={myUsername}
+          postId={post._id}
+          postUsername={post.username}
+          isGroup={isGroup}
+          groupId={groupId}
+        />
+      )}
       <div className="post-header">
-        <img id="user-profilePicture" src={myData.profilePicture} alt="" />
-        <div className="info">
-          <div className="name">{myData.name}</div>
-          {/* <div className="time">August 30 at 4:23PM</div> */}
-          <div className="time">{formatTimeDifference(post.date)}</div>
+        <img id="user-profilePicture" src={profilePicture} alt="" />
+        <div className="post-info">
+          <div className="name">{name}</div>
+          <div className="time">{formatTimeDifference(post.time)}</div>
         </div>
       </div>
       <div className="text">{post.text}</div>
@@ -103,8 +187,11 @@ export default function NewPost(props) {
       )}
       <div className="post-footer">
         <div className="post-numbers">
-          <div className="likes">
+          <div className={"likes" + (isLiked ? " liked" : "")}>
             <svg
+              onClick={() => {
+                handleLike();
+              }}
               id="svg-heart"
               height={20}
               width={20}
@@ -128,10 +215,11 @@ export default function NewPost(props) {
                 ></path>{" "}
               </g>
             </svg>
-            <div className="number">{post.likes.length}</div>
+            <div className="number">{likes.length}</div>
           </div>
           <div className="comments">
             <svg
+              onClick={viewPost}
               id="svg-comment"
               height={18}
               width={18}
@@ -174,13 +262,13 @@ export default function NewPost(props) {
                 </g>{" "}
               </g>
             </svg>
-            <div className="number">{post.comments.length}</div>
+            <div className="number">{comments.length}</div>
           </div>
         </div>
         <NewComment
           setComments={setComments}
           socket={socket}
-          myUsername={myData.username}
+          myUsername={myUsername}
           postId={post._id}
           comments={comments}
           postUsername={post.username}

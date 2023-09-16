@@ -115,7 +115,6 @@ export default function NewPostInput(props) {
           groupId,
         }
       );
-      restartFields();
       setNewPosts((prevState) => {
         return [data, ...prevState];
       });
@@ -124,7 +123,6 @@ export default function NewPostInput(props) {
         "http://localhost:5000/posts/newPost",
         data
       );
-      restartFields();
       setNewPosts((prevState) => {
         return [data, ...prevState];
       });
@@ -142,7 +140,6 @@ export default function NewPostInput(props) {
     <div className="NewPostInput">
       <div className="input">
         <img src={myData.profilePicture} id="myProfilePicture-newPost" alt="" />
-        <EmojiSelector setText={setText} />
         <textarea
           value={text}
           name="autoresizing"

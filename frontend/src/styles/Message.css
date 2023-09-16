@@ -1,0 +1,77 @@
+.Message {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  animation: show-options 0.5s;
+}
+.Message.myMessage {
+  flex-direction: row-reverse;
+}
+.Message img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.Message .message-info {
+  margin-left: 5px;
+}
+.Message.myMessage .message-info {
+  margin-left: 0px;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.Message .message-info .message-header .name {
+  font-weight: 600;
+  margin-right: 5px;
+}
+.Message .message-info .message-header .time {
+  font-size: 10px;
+  opacity: 0.5;
+}
+.Message.myMessage .message-info .message-header .name {
+  margin-left: 5px;
+  margin-right: 0;
+}
+.Message .message-info .message-header {
+  display: flex;
+  align-items: center;
+}
+
+.Message.myMessage .message-info .message-header {
+  flex-direction: row-reverse;
+}
+.Message.myMessage .message-info .content {
+  border-radius: 20px 0px 20px 20px;
+  background-color: royalblue;
+}
+.Message .message-info .content {
+  margin-top: 10px;
+  background-color: rgb(32, 59, 143);
+  padding: 10px;
+  color: white;
+  width: fit-content;
+  max-width: 400px;
+  border-radius: 0 20px 20px 20px;
+}
+.Message .message-image {
+  height: 400px;
+  width: 400px;
+  border-radius: 0 20px 20px 20px;
+}
+.Message.myMessage .message-image {
+  border-radius: 20px 0px 20px 20px;
+}
+.Message .wrapper {
+  position: relative;
+}
+.Message .wrapper .image-nubmer {
+  padding: 5px;
+  border-radius: var(--border-radius);
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background-color: rgba(181, 181, 181, 0.358);
+}

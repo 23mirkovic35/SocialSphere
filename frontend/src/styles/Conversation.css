@@ -1,0 +1,35 @@
+.Conversation {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.Conversation:hover {
+  background-color: aliceblue;
+}
+.Conversation img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.Conversation .other {
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.Conversation .other .name {
+  font-weight: 600;
+}
+.Conversation .other .last-message {
+  opacity: 0.5;
+  max-width: 150px;
+  height: 16px;
+  text-overflow: ellipsis; /* enables ellipsis */
+  white-space: nowrap; /* keeps the text in a single line */
+  overflow: hidden; /* keeps the element from overflowing its parent */
+}
