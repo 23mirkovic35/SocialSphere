@@ -27,6 +27,25 @@ export default function ChatBox({ selectedConversation, socket }) {
   }, [selectedConversation]);
 
   useEffect(() => {
+    if (socket) {
+      socket.on("getNewMessage", ({ sender, receiver, message }) => {
+        setNewMessages((prev) => {
+          if (
+            !prev.some(
+              (newMessage) =>
+                newMessage.time === message.time &&
+                message.type === newMessage.type &&
+                newMessage.text === message.text
+            )
+          )
+            return [...prev, message];
+          return prev;
+        });
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
     scrollToBottom();
   }, [messages, newMessages]);
 

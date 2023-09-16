@@ -4,20 +4,33 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Conversation from "./Conversation";
 
-export default function MessagesSideBar({ setSelectedConversation }) {
+export default function MessagesSideBar({ setSelectedConversation, socket }) {
   const { username } = useParams();
   const [conversations, setConversations] = useState([]);
   useEffect(() => {
     if (username) {
-      const data = {
-        username: username,
-      };
-      axios
-        .post("http://localhost:5000/conversations/getConversations", data)
-        .then((result) => setConversations(result.data))
-        .catch((error) => console.log(error));
+      getData();
     }
   }, [username]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("getNewMessage", ({ sender, receiver, message }) => {
+        getData();
+      });
+    }
+  }, [socket]);
+
+  const getData = () => {
+    const data = {
+      username: username,
+    };
+    axios
+      .post("http://localhost:5000/conversations/getConversations", data)
+      .then((result) => setConversations(result.data))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="MessagesSideBar">
       <div className="title">

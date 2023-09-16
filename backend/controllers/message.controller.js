@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const message = require("../models/message.js");
+const conversation = require("../models/conversation.js");
 class MessageController {
   getMessage = (req, res) => {
     const { _id } = req.body;
@@ -23,8 +24,9 @@ class MessageController {
     // console.log(req.body);
     const { senderID, type, text, images, videos, time, conversationID } =
       req.body;
+    const _id = new mongoose.Types.ObjectId();
     let newMsg = new message({
-      _id: new mongoose.Types.ObjectId(),
+      _id: _id,
       senderID: senderID,
       type: type,
       text: text,
@@ -35,7 +37,12 @@ class MessageController {
     });
     newMsg
       .save()
-      .then(() => res.json({ message: "OK" }))
+      .then(() => {
+        conversation
+          .findByIdAndUpdate({ _id: conversationID }, { lastMessage: _id })
+          .then((result) => res.json("OK"))
+          .catch((error) => console.log(error));
+      })
       .catch((err) => console.log(err));
   };
 }

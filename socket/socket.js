@@ -81,6 +81,7 @@ io.on("connection", (socket) => {
 
   socket.on("newMessage", ({ sender, receiver, message }) => {
     console.log(sender + " has sent " + receiver + " a new message");
+    const userId = getUser(receiver);
     io.to(userId.socketId).emit("getNewMessage", {
       sender: sender,
       receiver: receiver,
