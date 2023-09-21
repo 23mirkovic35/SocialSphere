@@ -28,6 +28,18 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.NewMessageInput .options .files #files {
+  display: block;
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.NewMessageInput .options .files #files:hover {
+  background-color: rgba(128, 128, 128, 0.087);
+}
 .NewMessageInput .files input[type="checkbox"]:checked ~ ul {
   visibility: visible;
 }
@@ -51,10 +63,25 @@
   display: flex;
   align-items: center;
   margin: 5px;
+  transition: background 0.5s ease;
+  padding: 5px;
+  border-radius: var(--border-radius);
+}
+.NewMessageInput .options .files ul li:hover {
+  background-color: rgba(128, 128, 128, 0.087);
 }
 
 .NewMessageInput .options .files ul li .text {
   margin-left: 5px;
+}
+
+.NewMessageInput .options .files ul li label {
+  display: flex;
+  cursor: pointer;
+}
+
+.NewMessageInput .options .files input[type="file"] {
+  display: none;
 }
 
 .NewMessageInput input[type="text"] {
@@ -90,4 +117,110 @@
 }
 .NewMessageInput button:hover {
   background-position: 100%;
+}
+.NewMessageInput .new-file {
+  overflow-y: auto;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: calc(100% + 10px);
+  z-index: 1;
+  background-color: aliceblue;
+  padding: 10px;
+  height: calc(100% - 40px);
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NewMessageInput .new-file .message-image {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+.NewMessageInput .new-file .message-images {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+.NewMessageInput .new-file .images-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.NewMessageInput .new-file .images-wrapper .images {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 5px;
+}
+.NewMessageInput .new-file .images .image-number {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgb(23, 95, 203);
+  color: white;
+}
+.NewMessageInput .new-file .image-wrapper {
+  position: relative;
+}
+
+.NewMessageInput .new-file .delete-img {
+  border-radius: var(--border-radius);
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: fit-content;
+  padding: 5px;
+  background-color: rgba(127, 23, 23, 0.57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+
+.NewMessageInput .new-file .delete-img:hover {
+  background-color: rgba(127, 23, 23, 1);
+}
+
+.NewMessageInput .new-file .send-file {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.NewMessageInput .new-file .document-wrapper .document {
+  position: relative;
+  background-color: royalblue;
+  color: white;
+  font-size: 12px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  display: flex;
+  margin: 10px;
+}
+
+.NewMessageInput .new-file .document-wrapper .document .delete-button {
+  background-color: rgb(161, 26, 26);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+.NewMessageInput .new-file .document-wrapper .document .name {
+  margin-left: 5px;
 }

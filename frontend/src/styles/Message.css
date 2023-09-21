@@ -45,11 +45,11 @@
 }
 .Message.myMessage .message-info .content {
   border-radius: 20px 0px 20px 20px;
-  background-color: royalblue;
+  background-color: rgb(57, 120, 183);
 }
 .Message .message-info .content {
   margin-top: 10px;
-  background-color: rgb(32, 59, 143);
+  background-color: #165496;
   padding: 10px;
   color: white;
   width: fit-content;

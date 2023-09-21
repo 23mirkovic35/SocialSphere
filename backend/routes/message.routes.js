@@ -11,5 +11,8 @@ messageRouter
 messageRouter
   .route("/getMessage")
   .post((req, res) => new messageController().getMessage(req, res));
+messageRouter
+  .route("/getAllAttachments")
+  .post((req, res) => new messageController().getAllAttachments(req, res));
 
 module.exports = messageRouter;

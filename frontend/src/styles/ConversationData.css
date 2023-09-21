@@ -1,0 +1,130 @@
+.ConversationData {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 5px);
+  height: calc(100% - 50px);
+  background-color: aliceblue;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  z-index: 11111111111111111111111111111111111111111111111111111111111111111111;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.ConversationData .header .user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.ConversationData .profile-pic {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.ConversationData .header .user-info .name {
+  font-size: 18px;
+  font-weight: 600;
+}
+.ConversationData .header .user-info .username {
+  font-size: 12px;
+  opacity: 0.3;
+  margin-top: -1px;
+  margin-bottom: 10px;
+}
+.ConversationData .header .user-info button {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(57, 120, 183) 50%,
+    #165496 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  transition: background 0.5s ease;
+}
+
+.ConversationData .header .user-info button:hover {
+  background-position: 100%;
+}
+
+.ConversationData .data-container {
+}
+.ConversationData .data-container .data {
+  padding: 10px;
+  width: 100%;
+}
+.ConversationData .data-container .data .title {
+  padding: 10px;
+  display: flex;
+}
+.ConversationData .title-text {
+  font-weight: 600;
+  font-size: 20px;
+}
+.ConversationData .number {
+  margin-left: 8px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.ConversationData .number span {
+  margin-right: 5px;
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: #3978b7;
+  margin-top: 2px;
+}
+.ConversationData .number .text {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #3978b7;
+}
+.ConversationData .data-container .data .images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 0px));
+  grid-gap: 5px;
+}
+
+.ConversationData .data-container .data .images .image {
+  margin: 5px;
+  height: 100px;
+  width: 100px;
+}
+.ConversationData .data-container .data .images .shared-pic {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.ConversationData .data-container .data .documents .document {
+  max-width: 300px;
+  font-size: 12px;
+  background-color: royalblue;
+}
+.ConversationData .data-container .data .documents .document a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+}

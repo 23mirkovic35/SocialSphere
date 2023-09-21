@@ -82,11 +82,14 @@ io.on("connection", (socket) => {
   socket.on("newMessage", ({ sender, receiver, message }) => {
     console.log(sender + " has sent " + receiver + " a new message");
     const userId = getUser(receiver);
-    io.to(userId.socketId).emit("getNewMessage", {
-      sender: sender,
-      receiver: receiver,
-      message: message,
-    });
+    if (userId)
+      io.to(userId.socketId).emit("getNewMessage", {
+        sender: sender,
+        receiver: receiver,
+        message: message,
+      });
+    const me = getUser(sender);
+    io.to(me.socketId).emit("updateConversation");
   });
 
   socket.on("disconnect", () => {

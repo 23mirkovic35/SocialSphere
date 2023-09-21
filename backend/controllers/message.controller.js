@@ -22,8 +22,16 @@ class MessageController {
 
   saveMessage = (req, res) => {
     // console.log(req.body);
-    const { senderID, type, text, images, videos, time, conversationID } =
-      req.body;
+    const {
+      senderID,
+      type,
+      text,
+      images,
+      videos,
+      documents,
+      time,
+      conversationID,
+    } = req.body;
     const _id = new mongoose.Types.ObjectId();
     let newMsg = new message({
       _id: _id,
@@ -32,6 +40,7 @@ class MessageController {
       text: text,
       images: images,
       videos: videos,
+      documents: documents,
       time: time,
       conversationID: conversationID,
     });
@@ -42,6 +51,28 @@ class MessageController {
           .findByIdAndUpdate({ _id: conversationID }, { lastMessage: _id })
           .then((result) => res.json("OK"))
           .catch((error) => console.log(error));
+      })
+      .catch((err) => console.log(err));
+  };
+  getAllAttachments = (req, res) => {
+    const { conversationID } = req.body;
+    message
+      .find({ conversationID: conversationID })
+      .then((messages) => {
+        const images = [];
+        const videos = [];
+        const documents = [];
+        messages.forEach((message) => {
+          if (message.images.length > 0) images.push(message.images);
+          if (message.videos.length > 0) videos.push(message.videos);
+          if (message.documents.length > 0) documents.push(message.documents);
+        });
+        const returnObj = {
+          images: images.flat(),
+          videos: videos.flat(),
+          documents: documents.flat(),
+        };
+        res.json(returnObj);
       })
       .catch((err) => console.log(err));
   };

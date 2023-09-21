@@ -10,6 +10,7 @@ export default function Messages() {
   const { username } = useParams();
   const { myData, socket } = useUserAndSocket();
   const [selectedConversation, setSelectedConversation] = useState();
+  const [showConversationData, setShowConversationData] = useState(false);
   return (
     <div className="Messages">
       <MessagesSideBar
@@ -19,10 +20,20 @@ export default function Messages() {
       <span className="vertical-line"></span>
       <div className="messanger-container">
         {selectedConversation && (
-          <ChatBox
-            selectedConversation={selectedConversation}
-            socket={socket}
-          />
+          <>
+            <ChatBox
+              selectedConversation={selectedConversation}
+              socket={socket}
+              setShowConversationData={setShowConversationData}
+            />
+            {showConversationData && (
+              <ConversationData
+                selectedConversation={selectedConversation}
+                socket={socket}
+                setShowConversationData={setShowConversationData}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

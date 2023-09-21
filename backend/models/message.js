@@ -9,6 +9,7 @@ let Message = new Schema({
   text: String,
   images: Array,
   videos: Array,
+  documents: Array,
   time: Date,
 });
 

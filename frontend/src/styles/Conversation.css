@@ -21,15 +21,33 @@
   font-size: 12px;
   margin-left: 10px;
 }
-
+.Conversation .other .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Conversation .other .name {
   font-weight: 600;
 }
+.Conversation .other .header .time {
+  font-size: 8px;
+  opacity: 0.3;
+  margin-left: 5px;
+}
 .Conversation .other .last-message {
   opacity: 0.5;
-  max-width: 150px;
+  display: flex;
+  align-items: center;
   height: 16px;
+}
+.Conversation .other .last-message .text {
+  margin-left: 2px;
+  max-width: 150px;
   text-overflow: ellipsis; /* enables ellipsis */
   white-space: nowrap; /* keeps the text in a single line */
   overflow: hidden; /* keeps the element from overflowing its parent */
+}
+.Conversation .other .last-message svg {
+  margin-top: 2px;
+  margin-left: 2px;
 }

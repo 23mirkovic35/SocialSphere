@@ -9,7 +9,16 @@
   animation: emoji-show 0.5s;
 }
 .EmojiSelector label {
+  display: block;
   cursor: pointer;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+.EmojiSelector label:hover {
+  background-color: rgba(128, 128, 128, 0.087);
 }
 .EmojiSelector .emoji-box {
   visibility: hidden;

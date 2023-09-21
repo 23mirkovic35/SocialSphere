@@ -18,6 +18,9 @@ export default function MessagesSideBar({ setSelectedConversation, socket }) {
       socket.on("getNewMessage", ({ sender, receiver, message }) => {
         getData();
       });
+      socket.on("updateConversation", () => {
+        getData();
+      });
     }
   }, [socket]);
 

@@ -74,3 +74,7 @@
   padding: 10px;
   overflow-y: auto;
 }
+
+.ChatBox input[type="checkbox"] {
+  display: none;
+}

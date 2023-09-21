@@ -18,3 +18,29 @@
   margin-left: 11px;
   position: relative;
 }
+
+.Messages .documents .document {
+  font-size: 12px;
+  background-color: rgb(103, 135, 198);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  margin: 5px;
+}
+.Messages .documents .document .name {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.Messages .documents .document .downaload {
+  padding: 5px;
+  background-color: rgb(160, 187, 211);
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-radius: 50%;
+}
