@@ -46,10 +46,14 @@ export default function FriendRequestNotification(props) {
         });
         setFriendRequestsNumber((prevRequests) => {
           return prevRequests - 1;
-        }); //?
+        });
       });
     }
   }, [socket]);
+
+  const linkToFriends = () => {
+    window.location.href = `http://localhost:3000/mySphere/friends/${myData.username}`;
+  };
 
   async function DB_getData(username, from) {
     const response = await axios.post(
@@ -123,7 +127,9 @@ export default function FriendRequestNotification(props) {
             return <FriendRequest key={index} {...request} socket={socket} />;
           })}
         </div>
-        <div className="show-all">Show All</div>
+        <div className="show-all" onClick={() => linkToFriends()}>
+          Show All
+        </div>
       </div>
       <span className="red-dot"></span>
     </div>

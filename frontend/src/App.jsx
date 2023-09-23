@@ -13,6 +13,11 @@ import ViewPost from "./components/ViewPost";
 import Groups from "./pages/Groups";
 import GroupPage from "./pages/GroupPage";
 import Messages from "./pages/Messages";
+import CallRoom from "./components/CallRoom";
+import Settings from "./pages/Settings";
+import RatePage from "./pages/RatePage";
+import AllNotifications from "./pages/AllNotifications";
+
 const App = () => {
   return (
     <Router>
@@ -31,6 +36,13 @@ const App = () => {
             <Route path="groups/:username" element={<Groups />} />
             <Route path="group/:groupId" element={<GroupPage />} />
             <Route path="messages/:username" element={<Messages />} />
+            <Route path="meeting/:socketID" element={<CallRoom />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="rateus" element={<RatePage />} />
+            <Route
+              path="notifications/:username"
+              element={<AllNotifications />}
+            />
           </Route>
         </Routes>
       </div>

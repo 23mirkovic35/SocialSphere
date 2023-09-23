@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/MessageNotifications.css";
+import axios from "axios";
+import Conversation from "./Conversation";
 
-export default function MessageNotifications() {
+export default function MessageNotifications({ socket, myData, setPopup }) {
+  const [conversations, setConversations] = useState([]);
+  const [myUsername, setMyUsername] = useState("");
+
+  const getMessages = () => {
+    const cbMessages = document.getElementById("cb_msgBox");
+    if (!cbMessages.checked) {
+      const username = localStorage.getItem("user");
+      getConversationsData(username);
+      setMyUsername(username);
+    }
+  };
+
+  const getConversationsData = (username) => {
+    const data = {
+      username: username,
+    };
+    axios
+      .post("http://localhost:5000/conversations/getConversations", data)
+      .then((result) => {
+        setConversations(result.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const setSelectedConversation = () => {};
+
+  const showAllMessages = () => {
+    window.location.href = `http://localhost:3000/mySphere/messages/${myUsername}`;
+  };
+
   return (
     <div className="MessageNotifications">
       <input type="checkbox" name="cb_msgBox" id="cb_msgBox" />
-      <label htmlFor="cb_msgBox">
+      <label htmlFor="cb_msgBox" onClick={() => getMessages()}>
         <svg
           id="svg_messageBox"
           width={20}
@@ -34,62 +66,32 @@ export default function MessageNotifications() {
       </label>
       <div className="messages-box">
         <div className="title">
-          <div className="text">Message</div>
+          <div className="text">Conversations</div>
           <div className="other">
             <span className="unread-msg"></span>
-            <div className="number">14 unread messages</div>
+            {conversations.length !== 1 && (
+              <div className="number">{conversations.length} conversations</div>
+            )}
+            {conversations.length === 1 && (
+              <div className="number">1 conversation</div>
+            )}
           </div>
         </div>
         <div className="messages">
-          <div className="message-box unread">
-            <img src="../assets/milica.png" alt="" id="friend-img" />
-            <div className="message">
-              <div className="from">Milica Golubovic</div>
-              <div className="text">
-                Ej Gru ti si da mi se potpises na sisi moras da priznas
-              </div>
-            </div>
-          </div>
-          <div className="message-box">
-            <img src="../assets/milica.png" alt="" id="friend-img" />
-            <div className="message">
-              <div className="from">Milica Golubovic</div>
-              <div className="text">
-                Ej Gru ti si da mi se potpises na sisi moras da priznas
-              </div>
-            </div>
-          </div>
-          <div className="message-box">
-            <img src="../assets/milica.png" alt="" id="friend-img" />
-            <div className="message">
-              <div className="from">Milica Golubovic</div>
-              <div className="text">
-                Ej Gru ti si da mi se potpises na sisi moras da priznas
-              </div>
-            </div>
-          </div>
-          <div className="message-box unread">
-            <img src="../assets/milica.png" alt="" id="friend-img" />
-            <div className="message">
-              <div className="from">Milica Golubovic</div>
-              <div className="text">
-                Ej Mire ti si da mi se potpises na sisi moras da priznas
-              </div>
-            </div>
-          </div>
-          <div className="message-box">
-            <img src="../assets/milica.png" alt="" id="friend-img" />
-            <div className="message">
-              <div className="from">Milica Golubovic</div>
-              <div className="text">
-                Ej Gru ti si da mi se potpises na sisi moras da priznas
-              </div>
-            </div>
-          </div>
+          {conversations.map((conversation, index) => (
+            <Conversation
+              setSelectedConversation={setSelectedConversation}
+              key={index}
+              myUsername={myUsername}
+              conversationData={conversation}
+              type={0}
+            />
+          ))}
         </div>
-        <div className="show-all">Show All</div>
+        <div className="show-all" onClick={() => showAllMessages()}>
+          Show All
+        </div>
       </div>
-      <span className="red-dot"></span>
     </div>
   );
 }

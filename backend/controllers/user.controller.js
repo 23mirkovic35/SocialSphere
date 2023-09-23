@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const user = require("../models/user.js");
+const post = require("../models/post.js");
+const conversation = require("../models/conversation.js");
+const message = require("../models/message.js");
+const review = require("../models/review.js");
+
 class UserController {
   login = (req, res) => {
     const { username, password } = req.body;
@@ -100,18 +105,41 @@ class UserController {
       })
       .catch((error) => console.log(error));
   };
+
+  lookByUsername = (req, res) => {
+    const username = req.body.parameter;
+    user
+      .find({ username: { $regex: username, $options: "i" } })
+      .then((result) => {
+        //res.json(result);
+        let users = [];
+        for (let i = 0; i < result.length; i++) {
+          const obj = {
+            name: result[i].name,
+            profilePicture: result[i].profilePicture,
+            username: result[i].username,
+          };
+          users.push(obj);
+        }
+        res.json(users);
+      })
+      .catch((error) => console.log(error));
+  };
+
   searchByUsername = (req, res) => {
     const username = req.body.username;
+    console.log(username);
     user
       .findOne({ username: username })
       .then((result) => {
-        let obj = {
-          name: result.name,
-          username: result.username,
-          profilePicture: result.profilePicture,
-        };
-        console.log(obj);
-        res.json(obj);
+        if (result) {
+          let obj = {
+            name: result.name,
+            username: result.username,
+            profilePicture: result.profilePicture,
+          };
+          res.json(obj);
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -164,24 +192,54 @@ class UserController {
       })
       .catch((error) => console.log(error));
   };
-  addNotification = (req, res) => {
-    const { username, myUsername } = req.body;
-    const query = { username: myUsername };
-    const update = {
-      $push: {
-        notifications: {
-          sender: username,
-          text: "has accepted your friend request.",
-        },
-      },
+  addNotification = async (req, res) => {
+    const { username, type } = req.body;
+    let text = "";
+    switch (type) {
+      case 1:
+        text = "has accepted your friend request.";
+        break;
+      case 2:
+        text = "has liked your post.";
+        break;
+      case 3:
+        text = "has commented your post.";
+        break;
+      case 4:
+        text = "has posted something new.";
+        break;
+      default:
+        break;
+    }
+    const newNotification = {
+      sender: username,
+      text: text,
     };
-    user
-      .findOneAndUpdate(query, update, { new: true })
-      .then((result) => console.log(result))
-      .catch((error) => console.log(error));
+    const filter = { username: username };
+    try {
+      const thisUser = await user.findOne(filter);
+      for (let i = 0; i < thisUser.friends.length; i++) {
+        const friend = thisUser.friends[i];
+        const filter_notification = { username: friend };
+        const update_notification = {
+          $push: { notifications: newNotification },
+        };
+        await user.findOneAndUpdate(filter_notification, update_notification);
+      }
+      res.json();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  getAllNotifications = (req, res) => {
+
+  getAllNotifications = async (req, res) => {
     const { username } = req.body;
+    try {
+      const oneUser = await user.findOne({ username: username });
+      res.json(oneUser.notifications);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   getProfilePicture = (req, res) => {
@@ -276,6 +334,114 @@ class UserController {
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
+  };
+
+  updateUsername = (req, res) => {
+    const { username, newUsername } = req.body;
+    const filter = { username: username };
+    const update = { username: newUsername };
+    user
+      .findOneAndUpdate(filter, update)
+      .then(() => res.json())
+      .catch((error) => console.log(error));
+  };
+
+  updateEmail = (req, res) => {
+    const { username, newEmail } = req.body;
+    const filter = { username: username };
+    const update = { email: newEmail };
+    user
+      .findOneAndUpdate(filter, update)
+      .then(() => res.json())
+      .catch((error) => console.log(error));
+  };
+
+  updatePassword = (req, res) => {
+    const { username, newPassword } = req.body;
+    const filter = { username: username };
+    const update = { password: newPassword };
+    user
+      .findOneAndUpdate(filter, update)
+      .then(() => res.json())
+      .catch((error) => console.log(error));
+  };
+
+  deleteAccount = async (req, res) => {
+    const { username } = req.body;
+    try {
+      const filter = { username: username };
+      await post.deleteMany(filter);
+      const filter_conversation = { members: { $in: [username] } };
+      const conversations = await conversation.find(filter_conversation);
+      for (let i = 0; i < conversations.length; i++) {
+        const conv = conversations[i];
+        const conversationID = conv._id;
+        const filter_message = { conversationID: conversationID };
+        await message.deleteMany(filter_message);
+      }
+      await conversation.deleteMany(filter_conversation);
+      await user.findOneAndDelete(filter);
+      res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  checkUsersEmail = async (req, res) => {
+    const { username, email } = req.body;
+    console.log(username + " " + email);
+    const filter = { username: username, email: email };
+    try {
+      const oneUser = await user.findOne(filter);
+      if (oneUser !== null) res.json(true);
+      else res.json(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  leaveReview = (req, res) => {
+    const { rating, title, comment, name, username, profilePicture } = req.body;
+    console.log(rating);
+    const _id = new mongoose.Types.ObjectId();
+    let newReview = new review({
+      _id: _id,
+      rating: rating,
+      title: title,
+      comment: comment,
+      author: name,
+      username: username,
+      profilePicture: profilePicture,
+    });
+    newReview
+      .save()
+      .then(() => {
+        res.json();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  getAllReviews = (req, res) => {
+    review
+      .find({})
+      .then((result) => res.json(result))
+      .catch((error) => console.log(error));
+  };
+
+  getAllInformation = async (req, res) => {
+    let usersNum = 0;
+    let postsNum = 0;
+    let likesNum = 0;
+    let commentsNum = 0;
+    const users = await user.find({});
+    usersNum = users.length;
+    const posts = await post.find({});
+    postsNum = posts.length;
+    posts.forEach((p) => {
+      likesNum += p.likes.length;
+      commentsNum += p.comments.length;
+    });
+    res.json({ usersNum, postsNum, likesNum, commentsNum });
   };
 }
 

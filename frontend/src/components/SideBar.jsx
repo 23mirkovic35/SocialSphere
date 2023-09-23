@@ -10,6 +10,9 @@ export default function SideBar(props) {
   const linkToProfile = () => {
     window.location.href = `http://localhost:3000/mySphere/profile/${myData.username}`;
   };
+  const linkToNotifications = () => {
+    window.location.href = `http://localhost:3000/mySphere/notifications/${myData.username}`;
+  };
   const linkToFriends = () => {
     window.location.href = `http://localhost:3000/mySphere/friends/${myData.username}`;
   };
@@ -59,7 +62,12 @@ export default function SideBar(props) {
         </svg>
         <div className="text">Home</div>
       </div>
-      <div className="field">
+      <div
+        className="field"
+        onClick={() => {
+          linkToNotifications();
+        }}
+      >
         <svg
           height={20}
           width={20}

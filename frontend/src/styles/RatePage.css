@@ -1,0 +1,67 @@
+.RatePage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.RatePage .wrapper {
+  width: 300px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.RatePage .header-title {
+  font-size: 24px;
+  font-weight: 600;
+  width: 100%;
+  padding: 5px;
+  padding-left: 20px;
+}
+.RatePage .stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+}
+.RatePage .comment {
+  width: 100%;
+}
+
+.RatePage .btn-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.RatePage .btn-container button {
+  width: 100px;
+  padding: 5px;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  background-image: linear-gradient(
+    to right,
+    rgb(16, 106, 162) 50%,
+    rgb(6, 41, 86) 50%
+  );
+  border-radius: var(--border-radius);
+  transition: background 0.5s ease;
+}
+
+.RatePage .btn-container button:hover {
+  background-position: 100%;
+}

@@ -1,0 +1,67 @@
+.AllNotifications {
+  width: 100%;
+  height: 100%;
+}
+.AllNotifications img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.AllNotifications .header {
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+}
+.AllNotifications .header .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+.AllNotifications .header .number {
+  margin-left: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.AllNotifications .header .number span {
+  margin-right: 5px;
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: #3978b7;
+  margin-top: 2px;
+}
+.AllNotifications .header .number .text {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #3978b7;
+}
+.notification {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 5px;
+}
+
+.notification:hover {
+  background-color: aliceblue;
+}
+
+.notification .text {
+  display: flex;
+  margin-left: 5px;
+}
+.notification .text .name {
+  font-weight: 600;
+  margin-right: 5px;
+}
+.notification .text .username {
+  opacity: 0.4;
+  margin-right: 5px;
+}

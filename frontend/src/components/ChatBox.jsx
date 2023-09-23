@@ -17,6 +17,8 @@ export default function ChatBox({
   const [newMessages, setNewMessages] = useState([]);
   const [friendUsername, setFriendUsername] = useState("");
   const [user, setUser] = useState();
+  const [isOnline, setIsOnilne] = useState(false);
+  const [friendSocketId, setFriendSoketID] = useState("");
 
   useEffect(() => {
     if (selectedConversation) {
@@ -59,6 +61,18 @@ export default function ChatBox({
         console.log(user);
       })
       .catch((error) => console.log(error));
+    socket.emit("setFriendSoketID", {
+      sender: username,
+      receiver: friendUsername,
+    });
+    socket.on("getFriendSocketID", (socketId) => {
+      if (socketId) {
+        setFriendSoketID(socketId);
+        setIsOnilne(true);
+      } else {
+        setIsOnilne(false);
+      }
+    });
   }, [friendUsername]);
 
   useEffect(() => {
@@ -73,6 +87,17 @@ export default function ChatBox({
 
   const showMore = () => {
     setShowConversationData(true);
+  };
+
+  const linkToMeetingRoom = () => {
+    if (isOnline) {
+      localStorage.setItem("ImCalling", true);
+      socket.emit("userIsCalling", {
+        myUsername: username,
+        friendsUsername: friendUsername,
+      });
+      window.location.href = `http://localhost:3000/mySphere/meeting/${friendSocketId}`;
+    } else alert("not online");
   };
 
   return (
@@ -112,7 +137,12 @@ export default function ChatBox({
                 </g>
               </svg>
             </button>
-            <button className="video-call">
+            <button
+              className="video-call"
+              onClick={() => {
+                linkToMeetingRoom();
+              }}
+            >
               <svg
                 height={25}
                 width={25}

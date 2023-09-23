@@ -5,10 +5,16 @@ export default function Logo(props) {
   return (
     <div className="Logo">
       {props.isHome === true && (
-        <img src="../assets/logo-white.png" alt="Logo Kompanije" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/socialsphere-2023.appspot.com/o/logo-white.png?alt=media&token=8f7a6712-9080-4057-97bb-33aa18453197"
+          alt="Logo Kompanije"
+        />
       )}
       {props.isHome === false && (
-        <img src="../assets/logo.png" alt="Logo Kompanije" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/socialsphere-2023.appspot.com/o/logo.png?alt=media&token=238a8e7f-1525-4168-95c3-88a2c1fbca98"
+          alt="Logo Kompanije"
+        />
       )}
       <div className="textContainer">
         {props.isHome === true && (

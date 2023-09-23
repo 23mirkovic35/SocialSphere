@@ -4,9 +4,15 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Conversation from "./Conversation";
 
-export default function MessagesSideBar({ setSelectedConversation, socket }) {
+export default function MessagesSideBar({
+  setSelectedConversation,
+  socket,
+  myData,
+}) {
   const { username } = useParams();
   const [conversations, setConversations] = useState([]);
+  const [newConversation, setNewConversation] = useState(false);
+  const [friendsData, setFriendsData] = useState([]);
   useEffect(() => {
     if (username) {
       getData();
@@ -24,6 +30,27 @@ export default function MessagesSideBar({ setSelectedConversation, socket }) {
     }
   }, [socket]);
 
+  useEffect(() => {
+    if (myData && myData.friends) {
+      for (let i = 0; i < myData.friends.length; i++) {
+        axios
+          .post("http://localhost:5000/users/searchByusername", {
+            username: myData.friends[i],
+          })
+          .then((response) => {
+            setFriendsData((prevData) => {
+              if (!prevData.some((u) => u.username === response.data.username))
+                return [...prevData, response.data];
+              return prevData;
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    }
+  }, [myData]);
+
   const getData = () => {
     const data = {
       username: username,
@@ -34,11 +61,40 @@ export default function MessagesSideBar({ setSelectedConversation, socket }) {
       .catch((error) => console.log(error));
   };
 
+  const createConversation = () => {
+    setNewConversation(true);
+  };
+
+  const selectConversation = (username) => {
+    const conversation = conversations.find((conversation) =>
+      conversation.members.includes(username)
+    );
+    if (conversation) {
+      setSelectedConversation(conversation);
+      setNewConversation(false);
+    } else {
+      axios
+        .post("http://localhost:5000/conversations/createConversation", {
+          members: [username, myData.username],
+        })
+        .then((result) => {
+          setSelectedConversation(result.data);
+          setNewConversation(false);
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
   return (
     <div className="MessagesSideBar">
       <div className="title">
         <div className="text">Chats</div>
-        <div className="new-conversation">
+        <div
+          className="new-conversation"
+          onClick={() => {
+            createConversation();
+          }}
+        >
           <svg
             height={20}
             width={20}
@@ -112,6 +168,80 @@ export default function MessagesSideBar({ setSelectedConversation, socket }) {
           conversationData={conversation}
         />
       ))}
+      {newConversation && (
+        <div className="newConversation-container">
+          <div className="wrapper">
+            <div className="header">
+              <div className="title-text">Create conversation</div>
+              <svg
+                onClick={() => {
+                  setNewConversation(false);
+                }}
+                height={25}
+                width={25}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M16 8L8 16M8 8L16 16"
+                    stroke="#a1a1a1"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  ></path>{" "}
+                </g>
+              </svg>
+            </div>
+            {friendsData.map((friend, index) => (
+              <div className="friend-data">
+                <div className="user-data">
+                  {" "}
+                  <img src={friend.profilePicture} className="friend-pic" />
+                  <div className="user-info">
+                    <div className="name">{friend.name}</div>
+                    <div className="username">@{friend.username}</div>
+                  </div>
+                </div>
+                <svg
+                  onClick={() => {
+                    selectConversation(friend.username);
+                  }}
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z"
+                      stroke="#a1a1a1"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>{" "}
+                  </g>
+                </svg>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

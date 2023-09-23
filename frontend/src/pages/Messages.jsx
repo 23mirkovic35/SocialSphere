@@ -16,6 +16,7 @@ export default function Messages() {
       <MessagesSideBar
         setSelectedConversation={setSelectedConversation}
         socket={socket}
+        myData={myData}
       />
       <span className="vertical-line"></span>
       <div className="messanger-container">

@@ -89,6 +89,7 @@ class GroupController {
   };
   updatePostLikes = (req, res) => {
     const { likes, _id, groupId } = req.body;
+    console.log(likes + " " + _id + " " + groupId);
     const filter = {
       _id: groupId,
     };

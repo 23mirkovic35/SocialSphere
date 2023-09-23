@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const post = require("../models/post.js");
 class PostController {
   newPost = (req, res) => {
-    const { username, name, type, text, images, videos, date } = req.body;
+    const { username, name, type, text, images, videos, time } = req.body;
     const insert = {
       _id: new mongoose.Types.ObjectId(),
       username: username,
@@ -14,7 +14,7 @@ class PostController {
       videos: videos,
       likes: [],
       comments: [],
-      time: date,
+      time: new Date(),
     };
     const newPost = new post(insert);
     newPost

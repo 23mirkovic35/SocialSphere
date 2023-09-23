@@ -17,13 +17,30 @@ export default function PostNotifications(props) {
   }, [myData]);
 
   useEffect(() => {
+    if (socket && typeof myData.username !== "undefined") {
+      socket.on("getNewPost", ({ username }) => {
+        const sender = username;
+        const receiver = myData.username;
+        if (sender !== receiver) {
+          DB_getData(sender, 4);
+          // DB_writeInDB(receiver, sender, 4);
+          DB_getUserProfilePicture({
+            sender: sender,
+            text: " has posted something new.",
+          });
+        }
+      });
+    }
+  }, [socket, myData]);
+
+  useEffect(() => {
     if (socket) {
       socket.on(
         "getFriendRequestAcceptedNotification",
         ({ sender, receiver }) => {
           console.log(sender + " has accepted your friend request.");
           DB_getData(sender, 1);
-          DB_writeInDB(receiver, sender);
+          // DB_writeInDB(receiver, sender, 1);
           DB_getUserProfilePicture({
             sender: sender,
             text: " has accepted your friend request.",
@@ -33,7 +50,7 @@ export default function PostNotifications(props) {
       socket.on("PostIsLiked", ({ sender, receiver, postId }) => {
         console.log(sender + " has liked your post " + postId);
         DB_getData(sender, 2, postId);
-        DB_writeInDB(receiver, sender);
+        // DB_writeInDB(receiver, sender, 2);
         DB_getUserProfilePicture({
           sender: sender,
           text: " has liked your post.",
@@ -45,7 +62,7 @@ export default function PostNotifications(props) {
           sender + " has commented your post " + postId + " " + receiver
         );
         DB_getData(sender, 3, postId);
-        DB_writeInDB(receiver, sender);
+        // DB_writeInDB(receiver, sender, 3);
         DB_getUserProfilePicture({
           sender: sender,
           text: " has commented your post.",
@@ -92,13 +109,26 @@ export default function PostNotifications(props) {
         username: response.data.username,
         profilePicture: response.data.profilePicture,
       });
+    } else if (from === 4) {
+      setPopup({
+        show: true,
+        text: "  has just posted something.",
+        type: "request",
+        username: response.data.username,
+        profilePicture: response.data.profilePicture,
+      });
     }
   }
 
-  async function DB_writeInDB(receiver, sender) {
+  const linkToNotifications = () => {
+    window.location.href = `http://localhost:3000/mySphere/notifications/${myData.username}`;
+  };
+
+  async function DB_writeInDB(receiver, sender, type) {
     const data = {
       username: sender,
       myUsername: receiver,
+      type: type,
     };
     console.log(data);
     await axios.post("http://localhost:5000/users/addNotification", data);
@@ -113,16 +143,7 @@ export default function PostNotifications(props) {
     );
     setNotifications((prevNotifications) => {
       const newElement = { ...notification, profilePicture: response.data };
-      return [newElement, ...prevNotifications].filter(
-        (obj, index, self) =>
-          index ===
-          self.findIndex(
-            (o) =>
-              o.profilePicture === obj.profilePicture &&
-              o.sender === obj.sender &&
-              o.text === obj.text
-          )
-      );
+      return [newElement, ...prevNotifications];
     });
   }
 
@@ -163,7 +184,9 @@ export default function PostNotifications(props) {
             <Notification {...notification} />
           ))}
         </div>
-        <div className="show-all">Show All</div>
+        <div className="show-all" onClick={() => linkToNotifications()}>
+          Show All
+        </div>
       </div>
       <span className="red-dot"></span>
     </div>

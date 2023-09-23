@@ -51,7 +51,6 @@ export default function NewComment({
         })
         .then((response) => {
           setComments((prevState) => [...prevState, newComment]);
-          alert(postUsername + " " + myUsername);
           if (myUsername !== postUsername) {
             socket.emit("newPostComment", {
               sender: myUsername,
@@ -66,19 +65,28 @@ export default function NewComment({
         .post("http://localhost:5000/posts/updateComments", data)
         .then((response) => {
           setComments((prevState) => [...prevState, newComment]);
-          alert(postUsername + " " + myUsername);
           if (myUsername !== postUsername) {
             socket.emit("newPostComment", {
               sender: myUsername,
               receiver: postUsername,
               postId: postId,
             });
+            DB_addNotification(myUsername, 3);
           }
         })
         .catch((error) => console.log(error));
     }
     setText("");
   };
+
+  async function DB_addNotification(username, type) {
+    const data = {
+      username: username,
+      type: type,
+    };
+    console.log(data);
+    await axios.post("http://localhost:5000/users/addNotification", data);
+  }
 
   return (
     <div className="NewComment">

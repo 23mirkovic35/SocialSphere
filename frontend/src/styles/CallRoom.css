@@ -1,0 +1,54 @@
+.CallRoom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.CallRoom button {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 100000000;
+}
+.CallRoom button {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(127, 23, 23) 50%,
+    rgb(86, 6, 6) 50%
+  );
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  transition: background 0.5s ease;
+}
+.CallRoom button:hover {
+  background-position: 100%;
+}
+
+.CallRoom .wrapper:first-child {
+  position: absolute;
+
+  width: 300px;
+  z-index: 100000000;
+  height: 250px;
+  background-color: rebeccapurple;
+  border: 1px solid black;
+}
+
+.CallRoom .wrapper:first-child .video {
+  height: 250px;
+}
+
+.CallRoom .wrapper .video {
+  background-color: black;
+  width: 100%;
+  height: 650px;
+}

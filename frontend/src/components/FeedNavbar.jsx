@@ -8,6 +8,22 @@ import FriendRequestNotification from "./FriendRequestNotification";
 
 function FeedNavbar(props) {
   const { myData, socket, setPopup } = props;
+
+  const visitProfile = () => {
+    window.location.href = `http://localhost:3000/mySphere/profile/${myData.username}`;
+  };
+
+  const rateUsPage = () => {
+    window.location.href = `http://localhost:3000/mySphere/rateus`;
+  };
+
+  const goToSettings = () => {
+    window.location.href = `http://localhost:3000/mySphere/settings`;
+  };
+  const logout = () => {
+    localStorage.removeItem("user");
+    window.location.href = `http://localhost:3000/login`;
+  };
   return (
     <div className="FeedNavbar">
       <Logo isHome={true} />
@@ -18,7 +34,11 @@ function FeedNavbar(props) {
           myData={myData}
           setPopup={setPopup}
         />
-        <MessageNotifications />
+        <MessageNotifications
+          socket={socket}
+          myData={myData}
+          setPopup={setPopup}
+        />
         <PostNotifications
           socket={socket}
           myData={myData}
@@ -30,14 +50,24 @@ function FeedNavbar(props) {
             <img src={myData.profilePicture} alt="" />
           </label>
           <div className="user-options">
-            <div className="option profile">
+            <div
+              className="option profile"
+              onClick={() => {
+                visitProfile();
+              }}
+            >
               <img src={myData.profilePicture} alt="" />
               <div className="user-info">
                 <div className="name">{myData.name}</div>
                 <span className="username">@{myData.username}</span>
               </div>
             </div>
-            <div className="option">
+            <div
+              className="option"
+              onClick={() => {
+                goToSettings();
+              }}
+            >
               <svg
                 height={20}
                 width={20}
@@ -67,9 +97,9 @@ function FeedNavbar(props) {
                   ></path>{" "}
                 </g>
               </svg>
-              <div className="option-title">Setting</div>
+              <div className="option-title">Settings</div>
             </div>
-            <div className="option">
+            <div className="option" onClick={() => rateUsPage()}>
               <svg
                 height={20}
                 width={20}
@@ -96,7 +126,12 @@ function FeedNavbar(props) {
               </svg>
               <div className="option-title">Rate us</div>
             </div>
-            <div className="option">
+            <div
+              className="option"
+              onClick={() => {
+                logout();
+              }}
+            >
               <svg
                 height={20}
                 width={20}

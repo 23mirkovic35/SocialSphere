@@ -14,6 +14,7 @@ export default function GroupPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [newPosts, setNewPosts] = useState([]);
 
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     if (typeof myData !== "undefined") {
     }
@@ -31,6 +32,12 @@ export default function GroupPage() {
         });
     }
   }, [groupId]);
+
+  useEffect(() => {
+    if (groupData && groupData.posts) {
+      setPosts(groupData.posts.reverse());
+    }
+  }, [groupData]);
 
   useEffect(() => {
     if (
@@ -77,7 +84,7 @@ export default function GroupPage() {
       </div>
       <div className="posts">
         {groupData &&
-          groupData.posts.map((post, index) => (
+          posts.map((post, index) => (
             <Post
               post={post}
               myUsername={myData.username}

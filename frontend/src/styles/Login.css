@@ -131,15 +131,16 @@
 }
 .Login .forgot-password {
   margin-top: -2px;
+  cursor: pointer;
 }
-.Login .forgot-password a {
+.Login .forgot-password {
   text-decoration: none;
   color: black;
   padding: 6px 8px;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
-.Login .forgot-password a:hover {
+.Login .forgot-password:hover {
   background: rgba(0, 119, 255, 0.06);
 }
 .checkbox-wrapper-4 * {

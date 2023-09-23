@@ -105,7 +105,7 @@ export default function NewPostInput(props) {
       videos: [],
       likes: [],
       comments: [],
-      date: new Date(),
+      time: new Date(),
     };
     if (isGroup) {
       const response = await axios.post(
@@ -126,8 +126,12 @@ export default function NewPostInput(props) {
       setNewPosts((prevState) => {
         return [data, ...prevState];
       });
+      DB_addNotification(myData.username, 4);
+      socket.emit("NewPostFromMe", {
+        username: myData.username,
+      });
     }
-    alert("mire");
+    restartFields();
   }
 
   const restartFields = () => {
@@ -135,6 +139,15 @@ export default function NewPostInput(props) {
     setImages([]);
     setPhotosURL([]);
   };
+
+  async function DB_addNotification(username, type) {
+    const data = {
+      username: username,
+      type: type,
+    };
+    console.log(data);
+    await axios.post("http://localhost:5000/users/addNotification", data);
+  }
 
   return (
     <div className="NewPostInput">

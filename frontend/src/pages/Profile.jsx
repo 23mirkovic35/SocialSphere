@@ -19,6 +19,8 @@ export default function Profile() {
   const [isEdit, setIsEdit] = useState(false);
   const [posts, setPosts] = useState([]);
 
+  const myUsername = localStorage.getItem("user");
+
   useEffect(() => {
     if (username !== myData.username) {
       if (user.friends !== undefined && myData.myRequests !== undefined) {
@@ -55,6 +57,16 @@ export default function Profile() {
       myUsername: myData.username,
       friendUsername: username,
     });
+    DB_addNotification(myData.username, 1);
+  }
+
+  async function DB_addNotification(username, type) {
+    const data = {
+      username: username,
+      type: type,
+    };
+    console.log(data);
+    await axios.post("http://localhost:5000/users/addNotification", data);
   }
 
   async function DB_getData(username) {
@@ -576,7 +588,7 @@ export default function Profile() {
             <UserData {...user} />
             <div className="user-posts">
               {posts.map((post) => (
-                <Post post={post} myUsername={user.name} socket={socket} />
+                <Post post={post} myUsername={myUsername} socket={socket} />
               ))}
             </div>
           </>

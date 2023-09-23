@@ -75,11 +75,10 @@
 #hero .info .comment-info {
   margin: 5px;
 }
-#hero .info .number {
+#hero .info .number-hero {
   margin-bottom: 30px;
   font-size: 24px;
   font-weight: 600;
-  font-size: 12px;
 }
 #hero .info .title {
   position: absolute;

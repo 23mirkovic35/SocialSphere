@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function SearchBar() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+
   const handleChange = (e) => {
     const resultBox = document.querySelector(".SearchBox .search-result");
     const intputValue = e.target.value.trim();
@@ -17,16 +18,31 @@ export default function SearchBar() {
     }
     if (!resultBox.classList.contains("active"))
       resultBox.classList.add("active");
-    axios
-      .post("http://localhost:5000/users/searchByName", {
-        parameter: e.target.value,
-      })
-      .then((response) => {
-        setUsers(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    if (intputValue[0] === "@") {
+      if (intputValue === "@") return;
+      const username = e.target.value.slice(1);
+      axios
+        .post("http://localhost:5000/users/lookByUsername", {
+          parameter: username,
+        })
+        .then((response) => {
+          setUsers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      axios
+        .post("http://localhost:5000/users/searchByName", {
+          parameter: e.target.value,
+        })
+        .then((response) => {
+          setUsers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   function visitUserPage(username) {

@@ -27,6 +27,18 @@ const getUser = (userId) => {
 };
 
 io.on("connection", (socket) => {
+  socket.emit("me", socket.id);
+  socket.on("setFriendSoketID", ({ sender, receiver }) => {
+    const user = getUser(receiver);
+
+    console.log(receiver);
+    const mySocketId = getUser(sender);
+    if (user) {
+      io.to(mySocketId.socketId).emit("getFriendSocketID", user.socketId);
+    } else {
+      io.to(mySocketId.socketId).emit("getFriendSocketID", null);
+    }
+  });
   socket.on("addOnlineUser", (username) => {
     let added = addUser(username, socket.id);
     console.log(onlineUsers);
@@ -37,7 +49,9 @@ io.on("connection", (socket) => {
 
   socket.on("sendFriendRequest", ({ sender, receiver }) => {
     const receiverUser = getUser(receiver);
-    io.to(receiverUser.socketId).emit("getFriendRequestNotification", sender);
+    if (receiverUser) {
+      io.to(receiverUser.socketId).emit("getFriendRequestNotification", sender);
+    }
     console.log(sender + " has sent friend request to " + receiver);
   });
 
@@ -66,7 +80,9 @@ io.on("connection", (socket) => {
   socket.on("postLiked", ({ sender, receiver, postId }) => {
     console.log(sender + " has liked " + receiver + " post " + postId);
     const user = getUser(receiver);
-    io.to(user.socketId).emit("PostIsLiked", { sender, receiver, postId });
+    if (user) {
+      io.to(user.socketId).emit("PostIsLiked", { sender, receiver, postId });
+    }
   });
 
   socket.on("newPostComment", ({ sender, receiver, postId }) => {
@@ -90,6 +106,36 @@ io.on("connection", (socket) => {
       });
     const me = getUser(sender);
     io.to(me.socketId).emit("updateConversation");
+  });
+
+  socket.on("callUser", (data) => {
+    io.to(data.userToCall).emit("callUser", {
+      signal: data.signalData,
+      from: data.from,
+      name: data.name,
+    });
+  });
+
+  socket.on("answerCall", (data) => {
+    io.to(data.to).emit("callAccepted", data.signal);
+  });
+
+  socket.on("userIsCalling", ({ myUsername, friendsUsername }) => {
+    console.log("user  " + myUsername + " is  calling " + friendsUsername);
+    const { socketId } = getUser(friendsUsername);
+    const { mySocektID } = getUser(myUsername);
+    console.log(socketId);
+    io.to(socketId).emit("showCallNotification", {
+      sender: myUsername,
+      receiver: friendsUsername,
+      senderSocketID: mySocektID,
+      receiverSocketID: socketId,
+    });
+  });
+
+  socket.on("NewPostFromMe", ({ username }) => {
+    console.log(username + " has just post something");
+    io.emit("getNewPost", { username: username });
   });
 
   socket.on("disconnect", () => {

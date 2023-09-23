@@ -5,9 +5,11 @@ import FormInput from "../components/FormInput";
 import Popup from "../components/Popup";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ForgotPassword from "../components/ForgotPassword";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [resetPassword, setReset] = useState(false);
   const [data, setData] = useState({
     username: "",
     password: "",
@@ -34,6 +36,11 @@ export default function Login() {
   ];
 
   useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) navigate("/mySphere");
+  }, []);
+
+  useEffect(() => {
     if (popup.show) setTimeout(() => setPopup(false), 5000);
   }, [popup.show]);
 
@@ -54,9 +61,16 @@ export default function Login() {
       axios
         .post("http://localhost:5000/users/login", data)
         .then((response) => {
-          console.log(response.data.username);
-          localStorage.setItem("user", response.data.username);
-          navigate("/mySphere");
+          if (response.data) {
+            localStorage.setItem("user", response.data.username);
+            navigate("/mySphere");
+          } else {
+            setPopup({
+              show: true,
+              text: "Please enter valid credentials.",
+              type: "error",
+            });
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -72,6 +86,18 @@ export default function Login() {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const startResetProcess = () => {
+    if (data.username !== "") {
+      setReset(true);
+    } else {
+      setPopup({
+        show: true,
+        text: "Please enter your username.",
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -167,8 +193,11 @@ export default function Login() {
                 </svg>
               </div>
             </div>
-            <div className="forgot-password">
-              <a href="#">Forgot password?</a>
+            <div
+              className="forgot-password"
+              onClick={() => startResetProcess()}
+            >
+              Forgot password?
             </div>
           </div>
           <button id="btn-login" onClick={handleSubmit}>
@@ -187,6 +216,13 @@ export default function Login() {
           <LoginSignupPhoto isLogin={true} />
         </div>
       </div>
+      {resetPassword && (
+        <ForgotPassword
+          setPopup={setPopup}
+          username={data.username}
+          setReset={setReset}
+        />
+      )}
     </div>
   );
 }

@@ -31,6 +31,10 @@ userRouter
   .post((req, res) => new userController().searchByName(req, res));
 
 userRouter
+  .route("/lookByUsername")
+  .post((req, res) => new userController().lookByUsername(req, res));
+
+userRouter
   .route("/searchByUsername")
   .post((req, res) => new userController().searchByUsername(req, res));
 
@@ -73,5 +77,37 @@ userRouter
 userRouter
   .route("/rejectFriendRequest")
   .post((req, res) => new userController().rejectFriendRequest(req, res));
+
+userRouter
+  .route("/updateUsername")
+  .post((req, res) => new userController().updateUsername(req, res));
+
+userRouter
+  .route("/updateEmail")
+  .post((req, res) => new userController().updateEmail(req, res));
+
+userRouter
+  .route("/updatePassword")
+  .post((req, res) => new userController().updatePassword(req, res));
+
+userRouter
+  .route("/deleteAccount")
+  .post((req, res) => new userController().deleteAccount(req, res));
+
+userRouter
+  .route("/checkUsersEmail")
+  .post((req, res) => new userController().checkUsersEmail(req, res));
+
+userRouter
+  .route("/leaveReview")
+  .post((req, res) => new userController().leaveReview(req, res));
+
+userRouter
+  .route("/getAllReviews")
+  .post((req, res) => new userController().getAllReviews(req, res));
+
+userRouter
+  .route("/getAllInformation")
+  .post((req, res) => new userController().getAllInformation(req, res));
 
 module.exports = userRouter;

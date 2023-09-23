@@ -105,11 +105,11 @@ export default function NewPost(props) {
     }
     setIsLiked(newIsLiked);
     let newLikes = [...likes];
-
     if (newLikes.some((username) => username === myUsername)) {
       newLikes = newLikes.filter((username) => username !== myUsername);
     } else {
-      newLikes.push(myUsername);
+      const username = localStorage.getItem("user");
+      newLikes.push(username);
     }
     setLikes(newLikes);
 
@@ -117,7 +117,7 @@ export default function NewPost(props) {
       likes: newLikes,
       _id: post._id,
     };
-
+    console.log(newLikes);
     try {
       const response = isGroup
         ? await axios.post("http://localhost:5000/groups/updatePostLikes", {
@@ -125,9 +125,21 @@ export default function NewPost(props) {
             groupId,
           })
         : await axios.post("http://localhost:5000/posts/updateLikes", data);
+      if (!isGroup) {
+        DB_addNotification(myUsername, 2);
+      }
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function DB_addNotification(username, type) {
+    const data = {
+      username: username,
+      type: type,
+    };
+    console.log(data);
+    await axios.post("http://localhost:5000/users/addNotification", data);
   }
 
   const viewPost = () => {
